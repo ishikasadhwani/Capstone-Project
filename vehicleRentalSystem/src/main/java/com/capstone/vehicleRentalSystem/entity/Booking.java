@@ -29,10 +29,10 @@ public class Booking {
     @Column(name="vehicle_name", nullable = false)
     private String vehicleName;
 
-    @Column(nullable = false)
+    @Column(name= "start_date", nullable = false)
     private LocalDate startDate;
 
-    @Column(nullable = false)
+    @Column(name="end_date", nullable = false)
     private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
