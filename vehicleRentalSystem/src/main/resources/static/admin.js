@@ -25,7 +25,11 @@ function showSection(section) {
             </form>
         `;
     sidebar.classList.toggle("open");
-  } else if (section === "addVehicle") {
+  }else if (section === "viewUsers") {
+       fetchUsers();
+       sidebar.classList.toggle("open");
+
+        }else if (section === "addVehicle") {
     content.innerHTML = `
             <h2>Add Vehicle</h2>
             <form id="addVehicleForm">
@@ -185,6 +189,57 @@ observer.observe(document.body, { childList: true, subtree: true });
 // Run initially in case the form is already loaded
 attachFormListener();
 
+function fetchUsers() {
+
+
+    fetch(`http://localhost:8080/users/all?email=${localStorage.getItem("userEmail")}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (!Array.isArray(data)) {
+                throw new Error("Invalid response: Expected an array");
+            }
+            displayUsers(data);
+        })
+        .catch(error => {
+            console.error('Error fetching users:', error);
+            document.getElementById("content").innerHTML = `<p style="color:red;">Failed to load users.</p>`;
+        });
+}
+
+function displayUsers(users) {
+    let content = document.getElementById("content");
+
+    // Create table
+    let tableHTML = `
+        <h2>All Users</h2>
+        <table border="1" width="100%">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>`;
+
+    // Loop through users and add rows
+    users.forEach(user => {
+        tableHTML += `
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.name}</td>
+                <td>${user.email}</td>
+                <td>${user.role}</td>
+            </tr>`;
+    });
+
+    tableHTML += `</table>`;
+    content.innerHTML = tableHTML;
+}
+
 
 
 async function addVehicle(event) {
@@ -340,23 +395,52 @@ let content = document.getElementById("content");
 //  });
 //}
 function fetchBookings() {
-  // Fetch bookings from backend
-  let content = document.getElementById("content");
-  content.innerHTML = `
-        <h2>Booking History</h2>
-        <table>
-            <tr>
-                <th>User</th>
-                <th>Vehicle</th>
-                <th>Date</th>
-                <th>Status</th>
-            </tr>
-            <tr>
-                <td>John Doe</td>
-                <td>Honda Civic</td>
-                <td>May 10-15, 2023</td>
-                <td>Completed</td>
-            </tr>
-        </table>
-    `;
+    fetch(`http://localhost:8080/bookings/history?email=${localStorage.getItem("userEmail")}`) // Update with your actual API endpoint
+        .then(response => response.json())
+        .then(data => {
+            displayBookings(data); // Call function to display data
+        })
+        .catch(error => console.error('Error fetching bookings:', error));
 }
+
+function displayBookings(bookings) {
+    let content = document.getElementById("content");
+
+    // Creating the table structure
+    let tableHTML = `
+        <h2>Booking History</h2>
+        <table border="1" cellspacing="0" cellpadding="8">
+            <tr>
+                <th>Booking ID</th>
+                <th>User ID</th>
+                <th>User Name</th>
+                <th>Vehicle ID</th>
+                <th>Vehicle Name</th>
+                <th>Status</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>`;
+
+    // Looping through bookings to create table rows
+    bookings.forEach(booking => {
+        tableHTML += `
+            <tr>
+                <td>${booking.id}</td>
+                <td>${booking.userId}</td>
+                <td>${booking.userName}</td>
+                <td>${booking.vehicleId}</td>
+                <td>${booking.vehicleName}</td>
+                <td>${booking.status}</td>
+                <td>${booking.startDate}</td>
+                <td>${booking.endDate}</td>
+            </tr>`;
+    });
+
+    tableHTML += `</table>`;
+
+    // **Updating content with the table**
+    content.innerHTML = tableHTML;
+}
+
+
+

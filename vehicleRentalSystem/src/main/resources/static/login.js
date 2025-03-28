@@ -23,6 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
         body: JSON.stringify(requestData),
       });
 
+
+
       if (response.ok) {
         // Fetch user details to check role
         const userResponse = await fetch(
@@ -35,6 +37,10 @@ document.addEventListener("DOMContentLoaded", function () {
           localStorage.setItem("userEmail", email);
           window.location.href = "admin.html"; // Redirect to admin dashboard
         } else {
+        localStorage.setItem("userId",userData.id);
+        localStorage.setItem("userName",userData.name);
+
+         localStorage.setItem("userEmail", email);
           window.location.href = "user.html"; // Redirect to user dashboard
         }
       } else {

@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -55,6 +57,13 @@ public class UserService {
         return user.map(this::convertToDTO).orElse(null);
     }
 
+    public List<UserDto> getAllUsers() {
+        List<User> users = userRepository.findAll();
+
+        return users.stream()
+                .map(user -> new UserDto(user.getId(), user.getName(), user.getEmail(), user.getRole()))
+                .collect(Collectors.toList());
+    }
 
 
     private UserDto convertToDTO(User user) {

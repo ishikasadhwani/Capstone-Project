@@ -34,70 +34,69 @@ function logout() {
 function fetchVehicles() {
   let content = document.getElementById("content");
 
-  // Sample vehicle data (Replace with API data when backend is ready)
-  const vehicles = [
-    {
-      name: "Toyota Camry",
-      id: "ABC-123",
-      type: "Sedan",
-      rate: 75,
-      image: "https://source.unsplash.com/300x200/?car",
-    },
-    {
-      name: "Honda Civic",
-      id: "XYZ-456",
-      type: "Sedan",
-      rate: 70,
-      image: "https://source.unsplash.com/300x200/?sports-car",
-    },
-    {
-      name: "Ford Explorer",
-      id: "LMN-789",
-      type: "SUV",
-      rate: 100,
-      image: "https://source.unsplash.com/300x200/?suv",
-    },
-  ];
-
   // Inject vehicle gallery HTML
   content.innerHTML = `
         <h2>Vehicle Gallery</h2>
         <div id="vehicleGallery" class="gallery-container"></div>
-         <div id="bookingModal" class="modal" style="display:none">
-        <div class="modal-content">
-          <span class="close-btn" onclick="closeBookingForm()">&times;</span>
-          <div id="bookingFormContainer"></div>
+        <div id="bookingModal" class="modal" style="display:none">
+          <div class="modal-content">
+            <span class="close-btn" onclick="closeBookingForm()">&times;</span>
+            <div id="bookingFormContainer"></div>
+          </div>
         </div>
-      </div>
     `;
 
   let gallery = document.getElementById("vehicleGallery");
 
-  // Loop through vehicles and create vehicle cards
-  vehicles.forEach((vehicle) => {
-    let vehicleCard = document.createElement("div");
-    vehicleCard.classList.add("vehicle-card");
-    vehicleCard.innerHTML = `
-          <img src="${vehicle.image}" alt="${vehicle.name}">
-          <h3>${vehicle.name}</h3>
-          <p><strong>Type:</strong> ${vehicle.type}</p>
-          <p><strong>Rate:</strong> $${vehicle.rate}/day</p>
-          <button class="book-now-btn" data-name="${vehicle.name}" data-id="${vehicle.id}" data-type="${vehicle.type}" data-rate="${vehicle.rate}">Book Now</button>
-      `;
-    gallery.appendChild(vehicleCard);
-  });
+  fetch("http://localhost:8080/vehicles/available") // Ensure this matches your backend URL
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((vehicles) => {
+      gallery.innerHTML = ""; // Clear previous content
 
-  // Attach event listeners to all "Book Now" buttons
-  document.querySelectorAll(".book-now-btn").forEach((button) => {
-    button.addEventListener("click", function () {
-      const name = this.getAttribute("data-name");
-      const id = this.getAttribute("data-id");
-      const type = this.getAttribute("data-type");
-      const rate = this.getAttribute("data-rate");
-      openBookingForm(name, id, type, rate);
-    });
-  });
+      vehicles.forEach((vehicle) => {
+        let vehicleCard = document.createElement("div");
+        vehicleCard.classList.add("vehicle-card");
+
+        vehicleCard.innerHTML = `
+          <img src="${vehicle.category.toLowerCase() === 'bike' ? 'bike-img.png' : 'car-img.png'}"
+          <h3>${vehicle.name}</h3>
+
+          <p><strong>Category:</strong> ${vehicle.category}</p>
+          <p><strong>Fuel Type:</strong> ${vehicle.fuelType}</p>
+          <p><strong>Seating Capacity:</strong> ${vehicle.seatingCapacity}</p>
+          <p><strong>Rate per Day:</strong> ${vehicle.pricePerDay}</p>
+          <button class="book-now-btn"
+            data-name="${vehicle.name}"
+            data-id="${vehicle.id}"
+            data-category="${vehicle.category}"
+            data-rate="${vehicle.pricePerDay}">
+            Book Now
+          </button>
+        `;
+
+        gallery.appendChild(vehicleCard);
+      });
+
+      // ✅ Attach event listeners AFTER adding elements to the DOM
+      document.querySelectorAll(".book-now-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          const name = this.getAttribute("data-name");
+          const id = this.getAttribute("data-id");
+          const category = this.getAttribute("data-category");
+          const rate = this.getAttribute("data-rate");
+          openBookingForm(name, id, category, rate);
+        });
+      });
+    })
+    .catch((error) => console.error("Error fetching vehicles:", error));
 }
+
+
 
 // Function to Open Booking Form (Modal Popup)
 function openBookingForm(name, id, type, rate) {
@@ -112,7 +111,7 @@ function openBookingForm(name, id, type, rate) {
             <input type="text" value="${name}" readonly><br>
 
             <label>Vehicle ID:</label>
-            <input type="text" value="${id}" readonly><br>
+            <input id= "vehicleId" type="number" value="${id}" readonly><br>
 
             <label>Type:</label>
             <input type="text" value="${type}" readonly><br>
@@ -130,7 +129,7 @@ function openBookingForm(name, id, type, rate) {
             <input type="text" id="totalPrice" readonly><br>
 
             <button type="button" onclick="calculatePrice()">Calculate Price</button>
-            <button type="submit">Confirm Booking</button>
+            <button type="submit" onclick="submitBooking()">Confirm Booking</button>
         </form>
     `;
   document.getElementById("startDate").setAttribute("min", today);
@@ -164,32 +163,118 @@ function calculatePrice() {
   document.getElementById("totalPrice").value = `${totalPrice.toFixed(2)}`;
 }
 
+function submitBooking() {
+  let bookingData = {
+    userName: localStorage.getItem("userName"),
+    userId: localStorage.getItem("userId"),
+    status:"CONFIRMED",
+    vehicleId: document.getElementById("vehicleId").value,
+    vehicleName: document.querySelector("input[value][readonly]").value,
+    startDate: document.getElementById("startDate").value,
+    endDate: document.getElementById("endDate").value,
+//    totalPrice: document.getElementById("totalPrice").value,
+  };
+
+  fetch(`http://localhost:8080/bookings/create?email=${localStorage.getItem("userEmail")}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(bookingData),
+  })
+    .then((response) => {
+        if (!response.ok) {
+          return response.json().then(err => {
+            throw new Error(err.message || "Something went wrong! Please try again.");
+          });
+        }
+        return response.text(); // Backend returns plain text for success
+      })
+      .then((message) => {
+        alert("✅ " + message); // Show only success message
+        document.getElementById("bookingModal").style.display = "none";
+      })
+      .catch((error) => {
+        alert("⚠️ " + error.message); // Show only meaningful error messages
+        console.error("Error creating booking:", error);
+      });
+}
+
+//function fetchVehicles() {
+//let content = document.getElementById("content");
+//    content.innerHTML = `
+//        <h2>Vehicle Gallery</h2>
+//        <div id="vehicleGallery" class="gallery-container" style="display:block"></div>
+//    `;
+//
+//    let gallery = document.getElementById("vehicleGallery");
+//
+//    fetch("http://localhost:8080/vehicles/available")  // Ensure this matches your backend URL
+//        .then(response => response.json())
+//        .then(vehicles => {
+//            vehicles.forEach(vehicle => {
+//                let vehicleCard = document.createElement("div");
+//                vehicleCard.classList.add("vehicle-card");
+//                vehicleCard.innerHTML = `
+//                    <img src="static/car-img.png" alt="${vehicle.name}">
+//                    <h3>${vehicle.name}</h3>
+//                    <p><strong>Category:</strong> ${vehicle.category}</p>
+//                    <p><strong>Fuel Type:</strong> ${vehicle.fuelType}</p>
+//                    <p><strong>Seating Capacity:</strong> ${vehicle.seatingCapacity}</p>
+//                    <p><strong>Rate per Day:</strong> ${vehicle.pricePerDay}</p>
+//                    <button onclick="bookVehicle('${vehicle.id}')">Book Now</button>
+//                `;
+//                gallery.appendChild(vehicleCard);
+//            });
+//        })
+//        .catch(error => console.error("Error fetching vehicles:", error));
+//}
+
 function fetchBookings() {
-  // Fetch bookings from backend
-  let content = document.getElementById("content");
-  content.innerHTML = `
+    fetch(`http://localhost:8080/bookings/userhistory?email=${localStorage.getItem("userEmail")}`) // Update with your actual API endpoint
+        .then(response => response.json())
+        .then(data => {
+            displayBookings(data); // Call function to display data
+        })
+        .catch(error => console.error('Error fetching bookings:', error));
+}
+
+function displayBookings(bookings) {
+    let content = document.getElementById("content");
+
+    // Creating the table structure
+    let tableHTML = `
         <h2>Booking History</h2>
-        <table>
+        <table border="1" cellspacing="0" cellpadding="8">
             <tr>
-                <th>Booking Id</th>
-                <th>User Id</th>
-                <th>User</th>
-                <th>Vehicle Id</th>
-                <th>Vehicle</th>
+                <th>Booking ID</th>
+                <th>User ID</th>
+                <th>User Name</th>
+                <th>Vehicle ID</th>
+                <th>Vehicle Name</th>
+                <th>Status</th>
                 <th>Start Date</th>
                 <th>End Date</th>
-                <th>Status</th>
-            </tr>
+            </tr>`;
+
+    // Looping through bookings to create table rows
+    bookings.forEach(booking => {
+        tableHTML += `
             <tr>
-                <td>1</td>
-                <td>1</td>
-                <td>John Doe</td>
-                <td>1</td>
-                <td>Honda Civic</td>
-                <td>May 10, 2023</td>
-                <td>May 15, 2023</td>
-                <td>Completed</td>
-            </tr>
-        </table>
-    `;
+                <td>${booking.id}</td>
+                <td>${booking.userId}</td>
+                <td>${booking.userName}</td>
+                <td>${booking.vehicleId}</td>
+                <td>${booking.vehicleName}</td>
+                <td>${booking.status}</td>
+                <td>${booking.startDate}</td>
+                <td>${booking.endDate}</td>
+            </tr>`;
+    });
+
+    tableHTML += `</table>`;
+
+    // **Updating content with the table**
+    content.innerHTML = tableHTML;
 }
+
