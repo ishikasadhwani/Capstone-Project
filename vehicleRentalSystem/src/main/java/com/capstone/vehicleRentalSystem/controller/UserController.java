@@ -6,7 +6,7 @@ import com.capstone.vehicleRentalSystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-@CrossOrigin(origins = "http://127.0.0.1:5500") // Allows requests from any frontend
+@CrossOrigin(origins = "http://localhost:63342") // Allows requests from any frontend
 @RestController
 @RequestMapping("/users")
 
