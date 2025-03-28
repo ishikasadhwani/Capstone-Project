@@ -24,6 +24,7 @@ public class UserService {
         // Encrypt the password before saving
         getUserByEmailAndRole(email, "ADMIN") ;
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(user.getRole());
         User savedUser = userRepository.save(user);
 
         return convertToDTO(savedUser);
@@ -61,7 +62,6 @@ public class UserService {
         dto.setId(user.getId());
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
-        dto.setRole(user.getRole());
         return dto;
     }
 }
