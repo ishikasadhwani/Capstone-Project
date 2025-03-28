@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="user.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+          href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+          rel="stylesheet"
+  />
+  <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+  />
+  <script src="user.js" defer></script>
+</head>
+<body class="user">
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2>User Panel</h2>
+  <ul>
+    <li onclick="showSection('viewVehicles')">
+      <span class="material-symbols-outlined">directions_car</span>View
+      Vehicles
+    </li>
+    <li onclick="showSection('viewBookings')">
+      <span class="material-symbols-outlined">view_list</span>View Booking
+      History
+    </li>
+  </ul>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <h1>Welcome, User!</h1>
+
+  <!-- Dynamic Section -->
+  <div id="content">
+    <p>Select an option from the sidebar.</p>
+  </div>
+
+  <div id="vehicleGallery" class="vehicle-gallery" style="display: none">
+    <h2>Vehicle Gallery</h2>
+
+    <div class="vehicle-list">
+      <div class="vehicle-card">
+        <h3>Toyota Camry</h3>
+        <p>$75/day</p>
+        <button>Book Now</button>
+        <button>Details</button>
+      </div>
+
+      <div class="vehicle-card">
+        <h3>Honda Civic</h3>
+        <p>$65/day</p>
+        <button>Book Now</button>
+        <button>Details</button>
+      </div>
+
+      <div class="vehicle-card">
+        <h3>Ford Explorer</h3>
+        <p>$95/day</p>
+        <button>Book Now</button>
+        <button>Details</button>
+      </div>
+
+      <div class="vehicle-card">
+        <h3>Chevrolet Malibu</h3>
+        <p>$70/day</p>
+        <button>Book Now</button>
+        <button>Details</button>
+      </div>
+
+      <div class="vehicle-card">
+        <h3>Nissan Rogue</h3>
+        <p>$85/day</p>
+        <button>Book Now</button>
+        <button>Details</button>
+      </div>
+
+      <div class="vehicle-card">
+        <h3>Tesla Model 3</h3>
+        <p>$120/day</p>
+        <button>Book Now</button>
+        <button>Details</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
