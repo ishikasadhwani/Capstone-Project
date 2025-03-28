@@ -84,22 +84,22 @@ public class BookingService {
     }
 
     public String createBooking(String email, BookingDto bookingDTO) {
-        User user = getUserByEmailAndRole(email, "USER"); // ✅ Check if it's a USER
-        Vehicle vehicle= vehicleRepo.findById(bookingDTO.getVehicleId()).orElseThrow(() ->new RuntimeException("Vehicle not found"));
-//        if (vehicle.getStatus() == VehicleStatus.BOOKED) {
-//            throw new RuntimeException("Vehicle is already booked and cannot be booked again.");
-//        }
-        // Get the last booking for this vehicle
-        List<Booking> lastBookings = bookingRepo.findLastBookingByVehicle(bookingDTO.getVehicleId(), PageRequest.of(0, 1));
-        Optional<Booking> lastBooking = lastBookings.isEmpty() ? Optional.empty() : Optional.of(lastBookings.get(0));
+        User user = getUserByEmailAndRole(email, "USER"); // ✅ Ensure it's a USER
+        Vehicle vehicle = vehicleRepo.findById(bookingDTO.getVehicleId())
+                .orElseThrow(() -> new RuntimeException("Vehicle not found"));
 
+        // 🟢 Check if the vehicle is already booked for the requested dates
+        List<Booking> overlappingBookings = bookingRepo.findConflictingBookings(
+                bookingDTO.getVehicleId(),
+                bookingDTO.getStartDate(),
+                bookingDTO.getEndDate());
 
-        // Allow booking if no previous booking exists or the new booking starts after the last booking's end date
-        if (lastBooking.isPresent() && !bookingDTO.getStartDate().isAfter(lastBooking.get().getEndDate())) {
-            throw new RuntimeException("Vehicle is already booked until " + lastBooking.get().getEndDate());
+        if (!overlappingBookings.isEmpty()) {
+            throw new RuntimeException("Vehicle is already booked from " +
+                    overlappingBookings.get(0).getStartDate() + " to " + overlappingBookings.get(0).getEndDate());
         }
 
-        // Create new booking
+        // 🟢 Create new booking
         Booking booking = new Booking();
         booking.setUser(user);
         booking.setUserName(bookingDTO.getUserName());
@@ -109,16 +109,14 @@ public class BookingService {
         booking.setEndDate(bookingDTO.getEndDate());
 
         if (bookingDTO.getStartDate().isEqual(LocalDate.now())) {
-            booking.setStatus(BookingStatus.ACTIVE); // If booking starts today, set to ACTIVE
-            vehicle.setStatus(VehicleStatus.BOOKED); // Also update vehicle status
+            booking.setStatus(BookingStatus.ACTIVE); // ✅ If booking starts today, set to ACTIVE
+            vehicle.setStatus(VehicleStatus.BOOKED);
             vehicleRepo.save(vehicle);
         } else {
-            booking.setStatus(BookingStatus.CONFIRMED); // Future bookings remain BOOKED until start date
+            booking.setStatus(BookingStatus.CONFIRMED);
         }
 
         bookingRepo.save(booking);
-
-
         return "Booking created successfully!";
     }
 

@@ -26,6 +26,15 @@ public interface BookingRepo extends JpaRepository<Booking, Long> {
     @Query("SELECT b FROM Booking b WHERE b.endDate = :date")
     List<Booking> findBookingsByEndDate(@Param("date") LocalDate date);
 
+    @Query("SELECT b FROM Booking b WHERE b.vehicle.id = :vehicleId " +
+            "AND (:startDate BETWEEN b.startDate AND b.endDate " +
+            "OR :endDate BETWEEN b.startDate AND b.endDate " +
+            "OR b.startDate BETWEEN :startDate AND :endDate)")
+    List<Booking> findConflictingBookings(@Param("vehicleId") Long vehicleId,
+                                          @Param("startDate") LocalDate startDate,
+                                          @Param("endDate") LocalDate endDate);
+
+
 
 
 }

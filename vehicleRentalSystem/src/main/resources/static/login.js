@@ -30,7 +30,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
         const userData = await userResponse.json();
 
+
         if (userData.role === "ADMIN") {
+          localStorage.setItem("userEmail", email);
           window.location.href = "admin.html"; // Redirect to admin dashboard
         } else {
           window.location.href = "user.html"; // Redirect to user dashboard

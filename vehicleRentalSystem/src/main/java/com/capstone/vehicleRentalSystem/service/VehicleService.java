@@ -43,10 +43,10 @@ public class VehicleService {
         dto.setPricePerDay(vehicle.getPricePerDay());
         return dto;
     }
-    public String addVehicle(String email, Vehicle vehicleDto) {
+    public VehicleDto addVehicle(String email, Vehicle vehicleDto) {
         userService.getUserByEmailAndRole(email, "ADMIN");
         vehicleRepo.save(vehicleDto);
-        return "Vehicle added successfully!";
+        return convertToDTO(vehicleDto);
     }
 
     // Update an existing vehicle

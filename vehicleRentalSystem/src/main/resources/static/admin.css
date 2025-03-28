@@ -5,7 +5,9 @@ body {
   display: flex;
   background-color: #f4f4f4;
 }
-
+img{
+height: 200px;
+}
 /* Sidebar */
 .sidebar {
   width: 250px;
@@ -129,46 +131,63 @@ th {
 }
 
 .gallery-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  padding: 20px;
-}
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center; /* Centers cards */
+   gap: 20px;
+   padding: 20px;
+ }
 
-.vehicle-card {
-  width: 250px;
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-  text-align: center;
+ .vehicle-card {
+   width: 280px; /* Fixed width for better alignment */
+   background: white;
+   border-radius: 10px;
+   padding: 15px;
+   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+   text-align: center;
+   flex: 1 1 280px; /* Allows flexible wrapping */
+ }
+
+
+.vehicle-card:hover {
+  transform: translateY(-5px); /* Subtle lift effect on hover */
 }
 
 .vehicle-card img {
   width: 100%;
-  height: 150px;
+  height: 160px; /* Slightly increased height */
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .vehicle-card h3 {
-  margin: 10px 0;
+  margin: 12px 0 6px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.vehicle-card p {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 10px;
 }
 
 .vehicle-card button {
   background: #007bff;
   color: white;
   border: none;
-  padding: 10px;
+  padding: 10px 15px;
   cursor: pointer;
-  border-radius: 5px;
-  transition: 0.3s;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: background 0.3s ease-in-out;
 }
 
 .vehicle-card button:hover {
   background: #0056b3;
 }
+
 
 /* 🟢 Responsive Design */
 @media (max-width: 1024px) {

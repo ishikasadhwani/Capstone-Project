@@ -16,15 +16,15 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<String>login(@RequestBody User user){
+    public ResponseEntity<?> login(@RequestBody User user) {
         boolean isAuthenticated = userService.authenticateUser(user.getEmail(), user.getPassword());
 
         if (isAuthenticated) {
-            return ResponseEntity.ok("Login successful!");
+            UserDto userDto = userService.getUserByEmail(user.getEmail()); // Fetch user details
+            return ResponseEntity.ok(userDto);
         } else {
             return ResponseEntity.status(401).body("Invalid email or password!");
         }
-
     }
 
 

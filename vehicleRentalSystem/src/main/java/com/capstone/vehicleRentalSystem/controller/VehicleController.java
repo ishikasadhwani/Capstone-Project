@@ -25,7 +25,7 @@ public class VehicleController {
 
     // Add a new vehicle (Admin only)
     @PostMapping("/add")
-    public ResponseEntity<String> addVehicle(@RequestParam String email, @RequestBody Vehicle vehicle) {
+    public ResponseEntity<VehicleDto> addVehicle(@RequestParam String email, @RequestBody Vehicle vehicle) {
         return ResponseEntity.ok(vehicleService.addVehicle(email, vehicle));
     }
     //Update a vehicle (Admin only)
