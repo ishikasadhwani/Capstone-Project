@@ -32,6 +32,14 @@ public class VehicleService {
                 .collect(Collectors.toList());
     }
 
+    public List<VehicleDto> getAllVehicles(String email) {
+        userService.getUserByEmailAndRole(email, "ADMIN");
+        List<Vehicle> vehicles = vehicleRepo.findAll();
+        return vehicles.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     private VehicleDto convertToDTO(Vehicle vehicle) {
         VehicleDto dto= new VehicleDto();
         dto.setId(vehicle.getId());

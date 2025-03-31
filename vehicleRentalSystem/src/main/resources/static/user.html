@@ -22,6 +22,9 @@
 <div class="sidebar">
   <h2>User Panel</h2>
   <ul>
+    <li onclick="showSection('viewProfile')">
+      <span class="material-symbols-outlined">person</span>Profile
+    </li>
     <li onclick="showSection('viewVehicles')">
       <span class="material-symbols-outlined">directions_car</span>View
       Vehicles
@@ -31,7 +34,7 @@
       History
     </li>
   </ul>
-  <button class="logout-btn" onclick="logout()">Logout</button>
+  <button class="logout-btn" onclick="logout()">Log out</button>
 </div>
 
 <!-- Main Content -->
@@ -41,54 +44,6 @@
   <!-- Dynamic Section -->
   <div id="content">
     <p>Select an option from the sidebar.</p>
-  </div>
-
-  <div id="vehicleGallery" class="vehicle-gallery" style="display: none">
-    <h2>Vehicle Gallery</h2>
-
-    <div class="vehicle-list">
-      <div class="vehicle-card">
-        <h3>Toyota Camry</h3>
-        <p>$75/day</p>
-        <button>Book Now</button>
-        <button>Details</button>
-      </div>
-
-      <div class="vehicle-card">
-        <h3>Honda Civic</h3>
-        <p>$65/day</p>
-        <button>Book Now</button>
-        <button>Details</button>
-      </div>
-
-      <div class="vehicle-card">
-        <h3>Ford Explorer</h3>
-        <p>$95/day</p>
-        <button>Book Now</button>
-        <button>Details</button>
-      </div>
-
-      <div class="vehicle-card">
-        <h3>Chevrolet Malibu</h3>
-        <p>$70/day</p>
-        <button>Book Now</button>
-        <button>Details</button>
-      </div>
-
-      <div class="vehicle-card">
-        <h3>Nissan Rogue</h3>
-        <p>$85/day</p>
-        <button>Book Now</button>
-        <button>Details</button>
-      </div>
-
-      <div class="vehicle-card">
-        <h3>Tesla Model 3</h3>
-        <p>$120/day</p>
-        <button>Book Now</button>
-        <button>Details</button>
-      </div>
-    </div>
   </div>
 </div>
 </body>

@@ -1,5 +1,5 @@
-body {
-  font-family: Arial, sans-serif;
+body .admin {
+ font-family: "PT Serif", serif;
   margin: 0;
   padding: 0;
   display: flex;
@@ -31,27 +31,47 @@ height: 200px;
   padding: 0;
 }
 
+
 .sidebar ul li {
   padding: 15px;
   cursor: pointer;
-  text-align: center;
+  align-items: center;
   border-bottom: 1px solid #444;
+  display: flex;
+  gap: 4px;
+  font-weight: 400;
 }
+ .sidebar ul li span {
+  margin-right: 10px;
+  font-size: 20px;
+  text-align: center;
+}
+
+img{
+height:200px;}
 
 .logout-btn {
   width: 100%;
   padding: 12px;
   border-radius: 0;
 
+font-family: "PT Serif", serif;
   color: white;
   border: none;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   position: absolute;
-  bottom: 20px;
+  bottom: 30px;
   left: 0;
   text-align: center;
 }
+.logout-btn span{
+ margin-right: 10px;
+  font-size: 18px;
+  bottom:28px;
+
+}
+
 
 .logout-btn:hover {
   background: #575757; /* Darker red on hover */
@@ -106,6 +126,31 @@ button:hover {
   background: #575757;
 }
 
+
+
+.info{
+     display: flex;
+     align-items: center;
+     gap:5px;
+
+
+}
+.profile p{
+margin left : 10%;
+font-size:18px;}
+
+
+.info span{
+padding:2px;
+
+background-color:gray;
+margin-top:0;
+margin-right: 10px;
+font-size: 20px;
+border-radius:2px;}
+
+
+
 /* Table */
 table {
   width: 100%;
@@ -130,61 +175,45 @@ th {
   color: white;
 }
 
-.gallery-container {
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: center; /* Centers cards */
-   gap: 20px;
-   padding: 20px;
- }
-
- .vehicle-card {
-   width: 280px; /* Fixed width for better alignment */
-   background: white;
-   border-radius: 10px;
-   padding: 15px;
-   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-   text-align: center;
-   flex: 1 1 280px; /* Allows flexible wrapping */
- }
-
-
-.vehicle-card:hover {
-  transform: translateY(-5px); /* Subtle lift effect on hover */
+.admin .gallery-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
 }
 
-.vehicle-card img {
-  width: 100%;
-  height: 160px; /* Slightly increased height */
-  object-fit: cover;
+.admin .vehicle-card {
+  width: 250px;
+  background: white;
   border-radius: 10px;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
-.vehicle-card h3 {
-  margin: 12px 0 6px;
-  font-size: 1.2rem;
-  color: #333;
+.admin .vehicle-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
-.vehicle-card p {
-  font-size: 0.95rem;
-  color: #666;
-  margin-bottom: 10px;
+.admin .vehicle-card h3 {
+  margin: 10px 0;
 }
 
-.vehicle-card button {
+.admin .vehicle-card button {
   background: #007bff;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 10px;
   cursor: pointer;
-  border-radius: 6px;
-  font-size: 1rem;
-  transition: background 0.3s ease-in-out;
+  border-radius: 5px;
+  transition: 0.3s;
 }
 
-.vehicle-card button:hover {
+.admin .vehicle-card button:hover {
   background: #0056b3;
 }
 

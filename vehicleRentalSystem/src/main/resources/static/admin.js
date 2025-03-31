@@ -29,7 +29,7 @@ function showSection(section) {
        fetchUsers();
        sidebar.classList.toggle("open");
 
-        }else if (section === "addVehicle") {
+  }else if (section === "addVehicle") {
     content.innerHTML = `
             <h2>Add Vehicle</h2>
             <form id="addVehicleForm">
@@ -65,7 +65,10 @@ function showSection(section) {
   } else if (section === "viewBookings") {
     fetchBookings();
     sidebar.classList.toggle("open");
-  }
+  } else if (section === "Profile") {
+        fetchProfile();
+        sidebar.classList.toggle("open");
+}
 }
 
 //function registerBtn(){
@@ -315,31 +318,48 @@ attachVehicleFormListener();
 
 function fetchVehicles() {
 let content = document.getElementById("content");
-    content.innerHTML = `
+
+  // Inject vehicle gallery HTML
+  content.innerHTML = `
         <h2>Vehicle Gallery</h2>
-        <div id="vehicleGallery" class="gallery-container" style="display:block"></div>
+        <div id="vehicleGallery" class="gallery-container"></div>
+        <div id="bookingModal" class="modal" style="display:none">
+          <div class="modal-content">
+            <span class="close-btn" onclick="closeBookingForm()">&times;</span>
+            <div id="bookingFormContainer"></div>
+          </div>
+        </div>
     `;
 
-    let gallery = document.getElementById("vehicleGallery");
+  let gallery = document.getElementById("vehicleGallery");
 
-    fetch("http://localhost:8080/vehicles/available")  // Ensure this matches your backend URL
-        .then(response => response.json())
-        .then(vehicles => {
-            vehicles.forEach(vehicle => {
-                let vehicleCard = document.createElement("div");
-                vehicleCard.classList.add("vehicle-card");
-                vehicleCard.innerHTML = `
-                    <img src="static/car-img.png" alt="${vehicle.name}">
-                    <h3>${vehicle.name}</h3>
-                    <p><strong>Category:</strong> ${vehicle.category}</p>
-                    <p><strong>Fuel Type:</strong> ${vehicle.fuelType}</p>
-                    <p><strong>Seating Capacity:</strong> ${vehicle.seatingCapacity}</p>
-                    <p><strong>Rate per Day:</strong> ${vehicle.pricePerDay}</p>
-                    <button onclick="bookVehicle('${vehicle.id}')">Book Now</button>
-                `;
-                gallery.appendChild(vehicleCard);
-            });
-        })
+  fetch(`http://localhost:8080/vehicles/all?email=${localStorage.getItem("userEmail")}`) // Ensure this matches your backend URL
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((vehicles) => {
+      gallery.innerHTML = ""; // Clear previous content
+
+      vehicles.forEach((vehicle) => {
+        let vehicleCard = document.createElement("div");
+        vehicleCard.classList.add("vehicle-card");
+
+        vehicleCard.innerHTML = `
+          <img src="${vehicle.category.toLowerCase() === 'bike' ? 'bike-img.png' : 'car-img.png'}"
+          <h3>${vehicle.name}</h3>
+
+          <p><strong>Category:</strong> ${vehicle.category}</p>
+          <p><strong>Fuel Type:</strong> ${vehicle.fuelType}</p>
+          <p><strong>Seating Capacity:</strong> ${vehicle.seatingCapacity}</p>
+          <p><strong>Rate per Day:</strong> ${vehicle.pricePerDay}</p>
+        `;
+
+        gallery.appendChild(vehicleCard);
+      });
+      })
         .catch(error => console.error("Error fetching vehicles:", error));
 }
 
@@ -440,6 +460,55 @@ function displayBookings(bookings) {
 
     // **Updating content with the table**
     content.innerHTML = tableHTML;
+}
+
+function fetchProfile() {
+    let content = document.getElementById("content");
+
+    fetch(`http://localhost:8080/users/${localStorage.getItem("userEmail")}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(data => {
+            content.innerHTML = `
+                        <h2>Admin Profile</h2>
+                        <div class="profile">
+                        <div class="info">
+
+                              <div>
+                                   <h3><span class="material-symbols-outlined">
+                                        person
+                                       </span>Name
+                                   </h3>
+                                   <p>${data.name}</p>
+                              </div>
+                        </div>
+                        <div class="info">
+
+                                <div>
+                                     <h3> <span class="material-symbols-outlined">
+                                           mail
+                                           </span>Email Address
+                                     </h3>
+                                     <p>${data.email}</p>
+                                </div>
+                        </div>
+                         <div class="info">
+
+                                 <div>
+                                      <h3> <span class="material-symbols-outlined">
+                                           stars
+                                           </span>Role
+                                      </h3>
+                                      <p>${data.role}</p>
+                                 </div>
+                         </div>
+            `;
+        })
+        .catch(error => console.error("Error fetching profile:", error));
 }
 
 

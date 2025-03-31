@@ -20,6 +20,9 @@ function showSection(section) {
   } else if (section === "viewBookings") {
     fetchBookings();
     sidebar.classList.toggle("open");
+  } else if (section === "viewProfile") {
+        fetchProfile();
+        sidebar.classList.toggle("open");
   }
 }
 function logout() {
@@ -28,8 +31,59 @@ function logout() {
   localStorage.removeItem("userRole");
 
   // Redirect to login page
-  window.location.href = "login.html";
+  window.location.href = "index.html";
 }
+
+
+function fetchProfile() {
+    let content = document.getElementById("content");
+
+    fetch(`http://localhost:8080/users/${localStorage.getItem("userEmail")}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(data => {
+            content.innerHTML = `
+                        <h2>Admin Profile</h2>
+                        <div class="profile">
+                        <div class="info">
+
+                              <div>
+                                   <h3><span class="material-symbols-outlined">
+                                        person
+                                       </span>Name
+                                   </h3>
+                                   <p>${data.name}</p>
+                              </div>
+                        </div>
+                        <div class="info">
+
+                                <div>
+                                     <h3> <span class="material-symbols-outlined">
+                                           mail
+                                           </span>Email Address
+                                     </h3>
+                                     <p>${data.email}</p>
+                                </div>
+                        </div>
+                         <div class="info">
+
+                                 <div>
+                                      <h3> <span class="material-symbols-outlined">
+                                           stars
+                                           </span>Role
+                                      </h3>
+                                      <p>${data.role}</p>
+                                 </div>
+                         </div>
+            `;
+        })
+        .catch(error => console.error("Error fetching profile:", error));
+}
+
 
 function fetchVehicles() {
   let content = document.getElementById("content");
@@ -241,6 +295,10 @@ function fetchBookings() {
 
 function displayBookings(bookings) {
     let content = document.getElementById("content");
+    if (bookings.length === 0) {
+            content.innerHTML = `<h3>No previous bookings found.</h3>`;
+            return;
+        }
 
     // Creating the table structure
     let tableHTML = `

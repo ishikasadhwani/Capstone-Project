@@ -79,6 +79,28 @@ body.user {
   color: #333;
 }
 
+.user .info{
+     display: flex;
+     align-items: center;
+     gap:5px;
+
+
+}
+.user .profile p{
+margin left : 10%;
+font-size:18px;}
+
+
+.user .info span{
+padding:2px;
+
+background-color:gray;
+margin-top:0;
+margin-right: 10px;
+font-size: 20px;
+border-radius:2px;}
+
+
 /* Forms */
 .user form {
   background: white;

@@ -4,6 +4,7 @@ import com.capstone.vehicleRentalSystem.entity.BookingStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,4 +21,7 @@ public class BookingDto {
     private BookingStatus status;
     private LocalDate startDate;
     private LocalDate endDate;
+
+
+
 }

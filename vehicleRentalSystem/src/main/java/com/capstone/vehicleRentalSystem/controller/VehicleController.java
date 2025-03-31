@@ -23,6 +23,12 @@ public class VehicleController {
         return ResponseEntity.ok(vehicles);
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<VehicleDto>> getAllVehicles(@RequestParam String email) {
+        List<VehicleDto> vehicles = vehicleService.getAllVehicles(email);
+        return ResponseEntity.ok(vehicles);
+    }
+
     // Add a new vehicle (Admin only)
     @PostMapping("/add")
     public ResponseEntity<VehicleDto> addVehicle(@RequestParam String email, @RequestBody Vehicle vehicle) {
