@@ -47,7 +47,7 @@ function fetchProfile() {
         })
         .then(data => {
             content.innerHTML = `
-                        <h2>Admin Profile</h2>
+                        <h2>User Profile</h2>
                         <div class="profile">
                         <div class="info">
 
@@ -136,7 +136,7 @@ function fetchVehicles() {
         gallery.appendChild(vehicleCard);
       });
 
-      // ✅ Attach event listeners AFTER adding elements to the DOM
+      // Attach event listeners AFTER adding elements to the DOM
       document.querySelectorAll(".book-now-btn").forEach((button) => {
         button.addEventListener("click", function () {
           const name = this.getAttribute("data-name");
@@ -226,7 +226,7 @@ function submitBooking() {
     vehicleName: document.querySelector("input[value][readonly]").value,
     startDate: document.getElementById("startDate").value,
     endDate: document.getElementById("endDate").value,
-//    totalPrice: document.getElementById("totalPrice").value,
+
   };
 
   fetch(`http://localhost:8080/bookings/create?email=${localStorage.getItem("userEmail")}`, {
@@ -254,35 +254,6 @@ function submitBooking() {
       });
 }
 
-//function fetchVehicles() {
-//let content = document.getElementById("content");
-//    content.innerHTML = `
-//        <h2>Vehicle Gallery</h2>
-//        <div id="vehicleGallery" class="gallery-container" style="display:block"></div>
-//    `;
-//
-//    let gallery = document.getElementById("vehicleGallery");
-//
-//    fetch("http://localhost:8080/vehicles/available")  // Ensure this matches your backend URL
-//        .then(response => response.json())
-//        .then(vehicles => {
-//            vehicles.forEach(vehicle => {
-//                let vehicleCard = document.createElement("div");
-//                vehicleCard.classList.add("vehicle-card");
-//                vehicleCard.innerHTML = `
-//                    <img src="static/car-img.png" alt="${vehicle.name}">
-//                    <h3>${vehicle.name}</h3>
-//                    <p><strong>Category:</strong> ${vehicle.category}</p>
-//                    <p><strong>Fuel Type:</strong> ${vehicle.fuelType}</p>
-//                    <p><strong>Seating Capacity:</strong> ${vehicle.seatingCapacity}</p>
-//                    <p><strong>Rate per Day:</strong> ${vehicle.pricePerDay}</p>
-//                    <button onclick="bookVehicle('${vehicle.id}')">Book Now</button>
-//                `;
-//                gallery.appendChild(vehicleCard);
-//            });
-//        })
-//        .catch(error => console.error("Error fetching vehicles:", error));
-//}
 
 function fetchBookings() {
     fetch(`http://localhost:8080/bookings/userhistory?email=${localStorage.getItem("userEmail")}`) // Update with your actual API endpoint
@@ -331,8 +302,6 @@ function displayBookings(bookings) {
     });
 
     tableHTML += `</table>`;
-
-    // **Updating content with the table**
     content.innerHTML = tableHTML;
 }
 

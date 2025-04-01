@@ -22,8 +22,14 @@ height: 200px;
 }
 
 .sidebar h2 {
+  top:20px;
   text-align: center;
   margin-bottom: 20px;
+
+}
+
+.sidebar h2:hover{
+  color: #c890a7;
 }
 
 .sidebar ul {
@@ -74,11 +80,14 @@ font-family: "PT Serif", serif;
 
 
 .logout-btn:hover {
-  background: #575757; /* Darker red on hover */
+  color: #c890a7;
+   background: rgba(200, 144, 167, 0.2);
 }
 
 .sidebar ul li:hover {
-  background: #575757;
+  color: #c890a7;
+ background: rgba(200, 144, 167, 0.2);
+
 }
 
 /* Main Content */
@@ -276,11 +285,11 @@ th {
   .toggle-btn {
     display: block;
     position: absolute;
-    top: 15px;
-    left: 15px;
+    top: 14px;
+    left: 10px;
     background: #242424;
     color: white;
-    padding: 10px;
+    padding: 8px;
     cursor: pointer;
     z-index: 1001;
   }

@@ -22,6 +22,11 @@ body.user {
 .user .sidebar h2 {
   text-align: center;
   margin-bottom: 20px;
+
+}
+
+.user .sidebar h2:hover{
+  color: #c890a7;
 }
 
 .user .sidebar ul {
@@ -43,7 +48,7 @@ body.user {
   width: 100%;
   padding: 12px;
   border-radius: 0;
-
+  font-family: "PT Serif", serif;
   color: white;
   border: none;
   cursor: pointer;
@@ -55,11 +60,13 @@ body.user {
 }
 
 .user .logout-btn:hover {
-  background: #575757; /* Darker red on hover */
+   color: #c890a7;
+    background: rgba(200, 144, 167, 0.2);
 }
 
 .user .sidebar ul li:hover {
-  background: #575757;
+    color: #c890a7;
+     background: rgba(200, 144, 167, 0.2);
 }
 
 .user .sidebar ul li span {

@@ -71,19 +71,7 @@ function showSection(section) {
 }
 }
 
-//function registerBtn(){
-//
-//         const name = document.getElementById("name").value;
-//         const email = document.getElementById("email").value;
-//         const password = document.getElementById("password").value;
-//         const role = document.getElementById("role").value;
-//
-//         if (name && email && password && role) {
-//               registerUser(name, email, password, role);
-//         } else {
-//               alert("Please fill in all fields.");
-//         }
-//}
+
 function logout() {
   // Clear stored user data (if using localStorage or sessionStorage)
   localStorage.removeItem("userToken");
@@ -92,42 +80,7 @@ function logout() {
   // Redirect to login page
   window.location.href = "index.html";
 }
-//document.addEventListener("DOMContentLoaded", function () {
-// document.getElementById("register-btn").addEventListener("click",
-//   });
-//async function registerUser(name, email, password, role) {
-//
-//  const apiUrl = `http://localhost:8080/users/register`; // Update the URL if needed
-//
-//  const requestData = {
-//    name: name,
-//    email: email,
-//    password: password,
-//    role: role,
-//  };
-//
-//  try {
-//    const response = await fetch(apiUrl, {
-//      method: "POST",
-//      headers: {
-//        "Content-Type": "application/json",
-//      },
-//      body: JSON.stringify(requestData),
-//    });
-//    console.log(response);
-//
-//    if (!response.ok) {
-//      throw new Error(`Error: ${response.status} - ${response.statusText}`);
-//    }
-//
-//    const result = await response.json();
-//    console.log("User registered successfully:", result);
-//    alert("User registered successfully!");
-//  } catch (error) {
-//    console.error("Failed to register user:", error);
-//    alert("Failed to register user. Please try again.");
-//  }
-//}
+
 
 // Function to handle user registration
 async function registerUser(event) {
@@ -363,57 +316,6 @@ let content = document.getElementById("content");
         .catch(error => console.error("Error fetching vehicles:", error));
 }
 
-
-//function fetchVehicles() {
-//  let content = document.getElementById("content");
-//
-//  // Sample vehicle data (Replace with API data when backend is ready)
-//  const vehicles = [
-//    {
-//      name: "Toyota Camry",
-//      id: "ABC-123",
-//      type: "Sedan",
-//      rate: "$75/day",
-//      image: "https://source.unsplash.com/300x200/?car",
-//    },
-//    {
-//      name: "Honda Civic",
-//      id: "XYZ-456",
-//      type: "Sedan",
-//      rate: "$70/day",
-//      image: "https://source.unsplash.com/300x200/?sports-car",
-//    },
-//    {
-//      name: "Ford Explorer",
-//      id: "LMN-789",
-//      type: "SUV",
-//      rate: "$100/day",
-//      image: "https://source.unsplash.com/300x200/?suv",
-//    },
-//  ];
-//
-//  // Inject vehicle gallery HTML
-//  content.innerHTML = `
-//      <h2>Vehicle Gallery</h2>
-//      <div id="vehicleGallery" class="gallery-container style="display:block"></div>
-//  `;
-//
-//  let gallery = document.getElementById("vehicleGallery");
-//
-//  // Loop through vehicles and create vehicle cards
-//  vehicles.forEach((vehicle) => {
-//    let vehicleCard = document.createElement("div");
-//    vehicleCard.classList.add("vehicle-card");
-//    vehicleCard.innerHTML = `
-//        <img src="carimage.com" alt="${vehicle.name}">
-//        <h3>${vehicle.name}</h3>
-//        <p><strong>Type:</strong> ${vehicle.type}</p>
-//        <p><strong>Rate:</strong> ${vehicle.rate}</p>
-//        <button onclick="bookVehicle('${vehicle.id}')">Book Now</button>
-//    `;
-//    gallery.appendChild(vehicleCard);
-//  });
-//}
 function fetchBookings() {
     fetch(`http://localhost:8080/bookings/history?email=${localStorage.getItem("userEmail")}`) // Update with your actual API endpoint
         .then(response => response.json())

@@ -3,14 +3,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "PT Serif", serif;
 }
 
 html {
   font-size: 16px;
 }
 
-body {
+body{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,9 +22,28 @@ body {
 }
 
 /* Header (Title & Subtitle) */
-header {
+ header {
   text-align: center;
   margin-bottom: 1.5rem;
+}
+
+ .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color:#212121;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    z-index: 1000;
+    height:4rem;
+}
+ .navbar h2{
+    color: #c890a7;
+
 }
 
 header h1 {
@@ -34,9 +53,23 @@ header h1 {
   color: #fbf5e5;
 }
 
-header p {
-  font-size: 1.2rem;
+header h1:hover{
   color: #c890a7;
+}
+
+@keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+.animated-text {
+     animation: fadeInUp 1.5s ease-out;
 }
 
 /* Glassmorphic Login Box */
