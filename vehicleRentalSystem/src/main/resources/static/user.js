@@ -27,8 +27,10 @@ function showSection(section) {
 }
 function logout() {
   // Clear stored user data (if using localStorage or sessionStorage)
-  localStorage.removeItem("userToken");
-  localStorage.removeItem("userRole");
+   localStorage.removeItem("userId");
+   localStorage.removeItem("userEmail");
+   localStorage.removeItem("userName"); // Remove all stored user details
+   localStorage.clear(); // Clears everything in localStorage (optional)
 
   // Redirect to login page
   window.location.href = "index.html";
@@ -208,12 +210,12 @@ function calculatePrice() {
   let timeDifference = endDate.getTime() - startDate.getTime();
   let days = timeDifference / (1000 * 3600 * 24);
 
-  if (days < 1) {
-    alert("End date must be after the start date.");
-    return;
-  }
+//  if (days < 1) {
+//    alert("End date must be after the start date.");
+//    return;
+//  }
 
-  let totalPrice = days * rate;
+  let totalPrice = (days+1) * rate;
   document.getElementById("totalPrice").value = `${totalPrice.toFixed(2)}`;
 }
 

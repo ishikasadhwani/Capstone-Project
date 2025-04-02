@@ -6,6 +6,18 @@ body.user {
   background-color: #f4f4f4;
 }
 
+.corner-head {
+    position: absolute;
+    top: 10px;
+    right: 2%;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 100;
+}
+
+.corner-head:hover{
+color: #c890a7;}
+
 /* Sidebar */
 .user .sidebar {
   width: 250px;
@@ -312,11 +324,17 @@ td {
   transform: scale(1.2);
 }
 
+.toggle-btn {
+    display: none; /* Hide by default */
+}
+
+
 /* 🟢 Responsive Design */
 @media (max-width: 1024px) {
   .user .vehicle-list {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
+
 }
 
 @media (max-width: 768px) {
@@ -345,17 +363,18 @@ td {
     width: 100%;
   }
 
+
   .user .toggle-btn {
-    display: block;
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: #242424;
-    color: white;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 1001;
-  }
+      display: block;
+      position: absolute;
+      top: 14px;
+      left: 10px;
+      background: #242424;
+      color: white;
+      padding: 8px;
+      cursor: pointer;
+      z-index: 1001;
+    }
 
   .user .modal-content {
     width: 90%;
@@ -370,6 +389,8 @@ td {
   .user .vehicle-card {
     padding: 10px;
   }
+
+
 
   .user #bookingForm input,
   #bookingForm button {

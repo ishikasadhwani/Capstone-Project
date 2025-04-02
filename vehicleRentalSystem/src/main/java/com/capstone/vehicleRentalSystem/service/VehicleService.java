@@ -47,6 +47,7 @@ public class VehicleService {
         dto.setCategory(vehicle.getCategory());
         dto.setFuelType(vehicle.getFuelType());
         dto.setSeatingCapacity(vehicle.getSeatingCapacity());
+        dto.setVehicleNo(vehicle.getVehicleNo());
         dto.setStatus(vehicle.getStatus());
         dto.setPricePerDay(vehicle.getPricePerDay());
         return dto;

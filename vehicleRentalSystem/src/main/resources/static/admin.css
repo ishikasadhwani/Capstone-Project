@@ -114,7 +114,7 @@ form {
 
 input,
 select {
-  width: 100%;
+  width: 90%;
   padding: 10px;
   margin: 10px 0;
   border: 1px solid #ccc;
@@ -226,6 +226,18 @@ th {
   background: #0056b3;
 }
 
+.corner-head {
+    position: absolute;
+    top: 10px;
+    right: 2%;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 100;
+}
+
+.corner-head:hover{
+color: #c890a7;}
+
 
 /* 🟢 Responsive Design */
 @media (max-width: 1024px) {
@@ -240,13 +252,6 @@ th {
     align-items: flex-start;
   }
 
-  .filter-bar {
-    flex-direction: column;
-  }
-
-  .filter-bar input {
-    width: 100%;
-  }
 
   .vehicle-list {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));

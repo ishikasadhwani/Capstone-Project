@@ -32,10 +32,10 @@ public class UserController {
 
     @GetMapping("/all")
     public ResponseEntity<List<UserDto>> getAllUsers(@RequestParam String email) {
-        // ✅ Verify that the requester is an admin
+        // Verify that the requester is an admin
         User admin = userService.getUserByEmailAndRole(email, "ADMIN");
 
-        // ✅ Fetch and return all users if admin is verified
+        // Fetch and return all users if admin is verified
         List<UserDto> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }

@@ -74,8 +74,7 @@ function showSection(section) {
 
 function logout() {
   // Clear stored user data (if using localStorage or sessionStorage)
-  localStorage.removeItem("userToken");
-  localStorage.removeItem("userRole");
+    localStorage.removeItem("userEmail");
 
   // Redirect to login page
   window.location.href = "index.html";
