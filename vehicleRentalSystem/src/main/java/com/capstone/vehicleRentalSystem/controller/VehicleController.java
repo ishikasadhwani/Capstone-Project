@@ -23,6 +23,7 @@ public class VehicleController {
         return ResponseEntity.ok(vehicles);
     }
 
+    //Get all vehicles
     @GetMapping("/all")
     public ResponseEntity<List<VehicleDto>> getAllVehicles(@RequestParam String email) {
         List<VehicleDto> vehicles = vehicleService.getAllVehicles(email);
@@ -34,18 +35,6 @@ public class VehicleController {
     public ResponseEntity<VehicleDto> addVehicle(@RequestParam String email, @RequestBody Vehicle vehicle) {
         return ResponseEntity.ok(vehicleService.addVehicle(email, vehicle));
     }
-    //Update a vehicle (Admin only)
-//    @PutMapping("/update/{id}")
-//    public ResponseEntity<String> updateVehicle(@RequestParam String email, @PathVariable Long id, @RequestBody Vehicle vehicle) {
-//        return ResponseEntity.ok(vehicleService.updateVehicle(email, id, vehicle));
-//    }
-
-    // Delete a vehicle (Admin only)
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<String> deleteVehicle(@RequestParam String email, @PathVariable Long id) {
-//        return ResponseEntity.ok(vehicleService.deleteVehicle(email, id));
-//    }
-
 }
 
 

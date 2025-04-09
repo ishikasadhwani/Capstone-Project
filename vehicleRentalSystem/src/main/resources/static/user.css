@@ -15,8 +15,9 @@ body.user {
     z-index: 100;
 }
 
-.corner-head:hover{
-color: #c890a7;}
+.corner-head:hover {
+   color: #c890a7;
+}
 
 /* Sidebar */
 .user .sidebar {
@@ -305,7 +306,6 @@ td {
   right: 10px;
   display: flex;
   z-index: 10;
-
   font-weight: bold;
   cursor: pointer;
   color: white;
@@ -327,7 +327,6 @@ td {
 .toggle-btn {
     display: none; /* Hide by default */
 }
-
 
 /* 🟢 Responsive Design */
 @media (max-width: 1024px) {
@@ -389,8 +388,6 @@ td {
   .user .vehicle-card {
     padding: 10px;
   }
-
-
 
   .user #bookingForm input,
   #bookingForm button {

@@ -28,14 +28,12 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(user.getRole());
         User savedUser = userRepository.save(user);
-
         return convertToDTO(savedUser);
     }
 
     public boolean authenticateUser(String email, String rawPassword) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-
         // Compare raw password with the stored hashed password
         return passwordEncoder.matches(rawPassword, user.getPassword());
     }
@@ -43,14 +41,11 @@ public class UserService {
     public User getUserByEmailAndRole(String email, String requiredRole) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-
         if (!user.getRole().toString().equalsIgnoreCase(requiredRole)) {
             throw new RuntimeException("Access denied! Only " + requiredRole + " can perform this action.");
         }
-
         return user;
     }
-
 
     public UserDto getUserByEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
@@ -59,7 +54,6 @@ public class UserService {
 
     public List<UserDto> getAllUsers() {
         List<User> users = userRepository.findAll();
-
         return users.stream()
                 .map(user -> new UserDto(user.getId(), user.getName(), user.getEmail(), user.getRole()))
                 .collect(Collectors.toList());
@@ -72,7 +66,6 @@ public class UserService {
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
         dto.setRole(user.getRole());
-
         return dto;
     }
 }

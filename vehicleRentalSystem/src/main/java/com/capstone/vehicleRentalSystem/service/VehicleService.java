@@ -57,38 +57,5 @@ public class VehicleService {
         vehicleRepo.save(vehicleDto);
         return convertToDTO(vehicleDto);
     }
-
-    // Update an existing vehicle
-//    public String updateVehicle(String email, Long id, Vehicle updatedVehicle) {
-//        userService.getUserByEmailAndRole(email, "ADMIN");
-//        Optional<Vehicle> existingVehicle = vehicleRepo.findById(id);
-//
-//        if (existingVehicle.isPresent()) {
-//            Vehicle vehicle = existingVehicle.get();
-//            vehicle.setName(updatedVehicle.getName());
-//            vehicle.setImageUrl(updatedVehicle.getImageUrl());
-//            vehicle.setPricePerDay(updatedVehicle.getPricePerDay());
-//            vehicle.setCategory(updatedVehicle.getCategory());
-//            vehicle.setFuelType(updatedVehicle.getFuelType());
-//            vehicle.setSeatingCapacity(updatedVehicle.getSeatingCapacity());
-//            vehicle.setStatus(updatedVehicle.getStatus());
-//
-//            vehicleRepo.save(vehicle);
-//            return "Vehicle updated successfully!";
-//        } else {
-//            return "Vehicle not found!";
-//        }
-//    }
-
-    // Delete a vehicle
-//    public String deleteVehicle(String email, Long id) {
-//        userService.getUserByEmailAndRole(email, "ADMIN");
-//        if (vehicleRepo.existsById(id)) {
-//            vehicleRepo.deleteById(id);
-//            return "Vehicle deleted successfully!";
-//        } else {
-//            return "Vehicle not found!";
-//        }
-//    }
 }
 

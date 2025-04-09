@@ -5,11 +5,20 @@ document.addEventListener("DOMContentLoaded", function () {
   toggleBtn.classList.add("toggle-btn");
   toggleBtn.innerHTML = "☰";
   document.body.appendChild(toggleBtn);
-
   toggleBtn.addEventListener("click", function () {
     sidebar.classList.toggle("open");
   });
 });
+
+(function () {
+  const email = localStorage.getItem("userEmail");
+  //If email is not stored, redirect to login
+  if (!email) {
+    window.location.href = "index.html";
+    alert("Access denied: Please Login to continue!");
+    return;
+  }
+})();
 
 function showSection(section) {
   let content = document.getElementById("content");
@@ -25,15 +34,14 @@ function showSection(section) {
         sidebar.classList.toggle("open");
   }
 }
+
 function logout() {
-  // Clear stored user data (if using localStorage or sessionStorage)
    localStorage.removeItem("userId");
    localStorage.removeItem("userEmail");
-   localStorage.removeItem("userName"); // Remove all stored user details
-   localStorage.clear(); // Clears everything in localStorage (optional)
+   localStorage.removeItem("userName");
+   localStorage.clear();
 
-  // Redirect to login page
-  window.location.href = "index.html";
+   window.location.href = "index.html";
 }
 
 
@@ -49,48 +57,42 @@ function fetchProfile() {
         })
         .then(data => {
             content.innerHTML = `
-                        <h2>User Profile</h2>
-                        <div class="profile">
-                        <div class="info">
-
-                              <div>
-                                   <h3><span class="material-symbols-outlined">
-                                        person
-                                       </span>Name
-                                   </h3>
-                                   <p>${data.name}</p>
-                              </div>
+                  <h2>User Profile</h2>
+                  <div class="profile">
+                    <div class="info">
+                        <div>
+                           <h3><span class="material-symbols-outlined">
+                               person
+                               </span>Name
+                           </h3>
+                           <p>${data.name}</p>
                         </div>
-                        <div class="info">
-
-                                <div>
-                                     <h3> <span class="material-symbols-outlined">
-                                           mail
-                                           </span>Email Address
-                                     </h3>
-                                     <p>${data.email}</p>
-                                </div>
-                        </div>
-                         <div class="info">
-
-                                 <div>
-                                      <h3> <span class="material-symbols-outlined">
-                                           stars
-                                           </span>Role
-                                      </h3>
-                                      <p>${data.role}</p>
-                                 </div>
-                         </div>
+                    </div>
+                    <div class="info">
+                       <div>
+                          <h3> <span class="material-symbols-outlined">
+                               mail
+                               </span>Email Address
+                          </h3>
+                          <p>${data.email}</p>
+                       </div>
+                    </div>
+                    <div class="info">
+                       <div>
+                         <h3> <span class="material-symbols-outlined">
+                               stars
+                              </span>Role
+                         </h3>
+                         <p>${data.role}</p>
+                       </div>
+                    </div>
             `;
         })
         .catch(error => console.error("Error fetching profile:", error));
 }
 
-
 function fetchVehicles() {
   let content = document.getElementById("content");
-
-  // Inject vehicle gallery HTML
   content.innerHTML = `
         <h2>Vehicle Gallery</h2>
         <div id="vehicleGallery" class="gallery-container"></div>
@@ -121,7 +123,6 @@ function fetchVehicles() {
         vehicleCard.innerHTML = `
           <img src="${vehicle.category.toLowerCase() === 'bike' ? 'bike-img.png' : 'car-img.png'}"
           <h3>${vehicle.name}</h3>
-
           <p><strong>Category:</strong> ${vehicle.category}</p>
           <p><strong>Fuel Type:</strong> ${vehicle.fuelType}</p>
           <p><strong>Seating Capacity:</strong> ${vehicle.seatingCapacity}</p>
@@ -151,8 +152,6 @@ function fetchVehicles() {
     })
     .catch((error) => console.error("Error fetching vehicles:", error));
 }
-
-
 
 // Function to Open Booking Form (Modal Popup)
 function openBookingForm(name, id, type, rate) {
@@ -258,7 +257,7 @@ function submitBooking() {
 
 
 function fetchBookings() {
-    fetch(`http://localhost:8080/bookings/userhistory?email=${localStorage.getItem("userEmail")}`) // Update with your actual API endpoint
+    fetch(`http://localhost:8080/bookings/userhistory?email=${localStorage.getItem("userEmail")}`)
         .then(response => response.json())
         .then(data => {
             displayBookings(data); // Call function to display data
@@ -279,9 +278,7 @@ function displayBookings(bookings) {
         <table border="1" cellspacing="0" cellpadding="8">
             <tr>
                 <th>Booking ID</th>
-                <th>User ID</th>
                 <th>User Name</th>
-                <th>Vehicle ID</th>
                 <th>Vehicle Name</th>
                 <th>Status</th>
                 <th>Start Date</th>
@@ -293,9 +290,7 @@ function displayBookings(bookings) {
         tableHTML += `
             <tr>
                 <td>${booking.id}</td>
-                <td>${booking.userId}</td>
                 <td>${booking.userName}</td>
-                <td>${booking.vehicleId}</td>
                 <td>${booking.vehicleName}</td>
                 <td>${booking.status}</td>
                 <td>${booking.startDate}</td>

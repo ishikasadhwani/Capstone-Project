@@ -1,6 +1,16 @@
 let sidebar = document.querySelector(".sidebar");
 let toggleBtn = document.createElement("div");
 
+(function () {
+  const email = localStorage.getItem("userEmail");
+  //If email is not stored, redirect to login
+  if (!email) {
+    window.location.href = "index.html";
+    alert("Access denied: Please Login to continue!");
+    return;
+  }
+})();
+
 document.addEventListener("DOMContentLoaded", function () {
   toggleBtn.classList.add("toggle-btn");
   toggleBtn.innerHTML = "☰";
@@ -302,7 +312,8 @@ let content = document.getElementById("content");
         vehicleCard.innerHTML = `
           <img src="${vehicle.category.toLowerCase() === 'bike' ? 'bike-img.png' : 'car-img.png'}"
           <h3>${vehicle.name}</h3>
-
+          <p><strong>ID:</strong> ${vehicle.id}</p>
+          <p><strong>Status:</strong> ${vehicle.status}</p>
           <p><strong>Category:</strong> ${vehicle.category}</p>
           <p><strong>Fuel Type:</strong> ${vehicle.fuelType}</p>
           <p><strong>Seating Capacity:</strong> ${vehicle.seatingCapacity}</p>

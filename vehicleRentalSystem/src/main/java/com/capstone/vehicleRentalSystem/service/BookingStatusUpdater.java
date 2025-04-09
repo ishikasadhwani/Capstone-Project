@@ -24,17 +24,14 @@ public class BookingStatusUpdater {
     private final VehicleRepo vehicleRepository;
     private final BookingRepo bookingRepository;
 
-    /**
-     * ✅ Runs every midnight to update booking & vehicle statuses
-     */
-    @Scheduled(cron = "0 0 0 * * ?") // Runs daily at 00:00 (midnight)
-    public void updateBookingAndVehicleStatus() {
-        processBookingUpdates();
-    }
 
-    /**
-     * ✅ Runs when the application starts, ensuring statuses are correct even after downtime.
-     */
+    // Runs every midnight to update booking & vehicle statuses
+//    @Scheduled(cron = "0 0 0 * * ?")
+//    public void updateBookingAndVehicleStatus() {
+//        processBookingUpdates();
+//    }
+
+    //Runs when the application starts, ensuring statuses are correct even after downtime.
     @EventListener(ApplicationReadyEvent.class)
     public void onApplicationStartup() {
         processBookingUpdates();
@@ -45,7 +42,7 @@ public class BookingStatusUpdater {
         LocalDate today = LocalDate.now();
 
 
-        // ✅ Update booking status to COMPLETED if yesterday was the end date
+        // Update booking status to COMPLETED if yesterday was the end date
         List<Booking> completedBookings = bookingRepository.findBookingsByEndDate(today.minusDays(1));
         for (Booking booking : completedBookings) {
             if (booking.getStatus() != BookingStatus.COMPLETED) { // Prevent redundant updates
@@ -56,7 +53,7 @@ public class BookingStatusUpdater {
             }
         }
 
-        // ✅ Update booking status to ACTIVE if today is the start date
+        // Update booking status to ACTIVE if today is the start date
         List<Booking> startingBookings = bookingRepository.findBookingsByStartDate(today);
         for (Booking booking : startingBookings) {
             if (booking.getStatus() != BookingStatus.ACTIVE) { // Prevent redundant updates
@@ -66,7 +63,5 @@ public class BookingStatusUpdater {
                 vehicleRepository.save(booking.getVehicle());
             }
         }
-
-
     }
 }

@@ -1,7 +1,5 @@
 package com.capstone.vehicleRentalSystem.service;
 
-
-
 import com.capstone.vehicleRentalSystem.dto.BookingDto;
 import com.capstone.vehicleRentalSystem.entity.*;
 import com.capstone.vehicleRentalSystem.repository.BookingRepo;
@@ -25,16 +23,12 @@ public class BookingService {
     private final UserRepo userRepo;
     private final VehicleRepo vehicleRepo;
 
-    // Constructor injection
     public BookingService(BookingRepo bookingRepo, UserRepo userRepo, VehicleRepo vehicleRepo) {
         this.bookingRepo = bookingRepo;
         this.userRepo = userRepo;
         this.vehicleRepo = vehicleRepo;
     }
 
-
-
-    //Common function to check the role of a user
     private User getUserByEmailAndRole(String email, String requiredRole) {
         User user = userRepo.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -88,7 +82,7 @@ public class BookingService {
         Vehicle vehicle = vehicleRepo.findById(bookingDTO.getVehicleId())
                 .orElseThrow(() -> new RuntimeException("Vehicle not found"));
 
-        // 🟢 Check if the vehicle is already booked for the requested dates
+        // Check if the vehicle is already booked for the requested dates
         List<Booking> overlappingBookings = bookingRepo.findConflictingBookings(
                 bookingDTO.getVehicleId(),
                 bookingDTO.getStartDate(),
@@ -99,7 +93,7 @@ public class BookingService {
                     overlappingBookings.get(0).getStartDate() + " to " + overlappingBookings.get(0).getEndDate());
         }
 
-        // 🟢 Create new booking
+        // Create new booking
         Booking booking = new Booking();
         booking.setUser(user);
         booking.setUserName(bookingDTO.getUserName());
@@ -109,7 +103,7 @@ public class BookingService {
         booking.setEndDate(bookingDTO.getEndDate());
 
         if (bookingDTO.getStartDate().isEqual(LocalDate.now())) {
-            booking.setStatus(BookingStatus.ACTIVE); // ✅ If booking starts today, set to ACTIVE
+            booking.setStatus(BookingStatus.ACTIVE); // If booking starts today, set to ACTIVE
             vehicle.setStatus(VehicleStatus.BOOKED);
             vehicleRepo.save(vehicle);
         } else {
@@ -120,27 +114,17 @@ public class BookingService {
         return "Booking created successfully!";
     }
 
-//    public String deleteBooking(String email, Long bookingId) {
-//        getUserByEmailAndRole(email, "ADMIN"); // ✅ Check if it's an ADMIN
-//
-//        bookingRepo.deleteById(bookingId);
-//        return "Booking deleted successfully!";
+//    // Reusable function to get User by ID
+//    private User getUserById(Long userId) {
+//        return userRepo.findById(userId)
+//                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
 //    }
-
-    // Cancel booking (User can cancel their own booking)
 //
-
-    // Reusable function to get User by ID
-    private User getUserById(Long userId) {
-        return userRepo.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
-    }
-
-    // Reusable function to get Vehicle by ID
-    private Vehicle getVehicleById(Long vehicleId) {
-        return vehicleRepo.findById(vehicleId)
-                .orElseThrow(() -> new RuntimeException("Vehicle not found with ID: " + vehicleId));
-    }
+//    // Reusable function to get Vehicle by ID
+//    private Vehicle getVehicleById(Long vehicleId) {
+//        return vehicleRepo.findById(vehicleId)
+//                .orElseThrow(() -> new RuntimeException("Vehicle not found with ID: " + vehicleId));
+//    }
 }
 
 

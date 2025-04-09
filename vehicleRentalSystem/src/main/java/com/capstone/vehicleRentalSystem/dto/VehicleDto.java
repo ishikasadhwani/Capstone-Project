@@ -14,9 +14,9 @@ public class VehicleDto {
     private Long id;
     private String vehicleNo;
     private String name;
-    private VehicleCategory category; // Car, Bike, SUV, etc.
+    private VehicleCategory category; // Car, Bike etc.
     private FuelType fuelType;
     private int seatingCapacity;
     private VehicleStatus status;
-    private double pricePerDay;  // Added this field
+    private double pricePerDay;
 }

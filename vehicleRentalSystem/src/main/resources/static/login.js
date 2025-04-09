@@ -23,15 +23,12 @@ document.addEventListener("DOMContentLoaded", function () {
         body: JSON.stringify(requestData),
       });
 
-
-
       if (response.ok) {
         // Fetch user details to check role
         const userResponse = await fetch(
           `http://localhost:8080/users/${email}`
         );
         const userData = await userResponse.json();
-
 
         if (userData.role === "ADMIN") {
           localStorage.setItem("userEmail", email);

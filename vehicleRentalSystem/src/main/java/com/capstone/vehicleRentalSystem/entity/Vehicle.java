@@ -23,8 +23,6 @@ public class Vehicle {
     @Column(name="price_per_day", nullable = false)
     private Double pricePerDay;
 
-
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private VehicleCategory category; // CAR, BIKE

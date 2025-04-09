@@ -40,9 +40,6 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-
-
-
     @GetMapping("/{email}")
     public UserDto getUserByEmail(@PathVariable String email) {
         return userService.getUserByEmail(email);

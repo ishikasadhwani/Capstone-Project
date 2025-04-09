@@ -30,27 +30,10 @@ public class BookingController {
         return ResponseEntity.ok(bookings);
     }
 
-
     @PostMapping("/create")
     public ResponseEntity<String> createBooking(@RequestParam String email, @RequestBody BookingDto bookingDTO) {
         String response = bookingService.createBooking(email, bookingDTO);
         return ResponseEntity.ok(response);
     }
-
-//    @DeleteMapping("/delete/{bookingId}")
-//    public ResponseEntity<String> deleteBooking(@RequestParam String email, @PathVariable Long bookingId) {
-//        String response = bookingService.deleteBooking(email, bookingId);
-//        return ResponseEntity.ok(response);
-//    }
-//
-//    @DeleteMapping("/cancel/{bookingId}")
-//    public ResponseEntity<String> cancelBooking(
-//            @PathVariable Long bookingId,
-//            @RequestParam String email) {
-//        String response = bookingService.cancelBooking(bookingId, email);
-//        return ResponseEntity.ok(response);
-//    }
-
-
 }
 
