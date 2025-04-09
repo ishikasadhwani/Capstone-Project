@@ -231,6 +231,7 @@ td {
   margin-right: auto;
   justify-content: center;
   align-items: center;
+  overflow-y:auto;
 }
 
 .user #bookingForm {
@@ -278,18 +279,26 @@ td {
   background: #218838;
 }
 
+.user #bookingModal{
+
+
+}
+
 /* Modal Styles */
 .user .modal {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   background: rgba(0, 0, 0, 0.5);
+  overflow-y:auto;
+  z-index: 1000;
 }
+
 .user .modal-content {
   background: white;
   padding: 20px;

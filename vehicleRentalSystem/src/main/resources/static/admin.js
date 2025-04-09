@@ -27,11 +27,11 @@ function showSection(section) {
     content.innerHTML = `
             <h2>Register User</h2>
             <form id="registerForm">
-                <input id="name" type="text" placeholder="Name" required>
-                <input id="email" type="email" placeholder="Email"  required>
-                <input id="password" type="password" placeholder="Password"  required>
-                <input id="role" type="text" placeholder="Role(Capital Letters)" required>
-                <button id="register-btn" type="submit">Register</button>
+               <input id="name" name="name" type="text" placeholder="Name" required autocomplete="name">
+               <input id="email" name="email" type="email" placeholder="Email" required autocomplete="email">
+               <input id="password" name="password" type="password" placeholder="Password" required autocomplete="new-password">
+               <input id="role" name="role" type="text" placeholder="Role(Capital Letters)" required autocomplete="organization-title">
+               <button id="register-btn" type="submit">Register</button>
             </form>
         `;
     sidebar.classList.toggle("open");
@@ -85,7 +85,6 @@ function showSection(section) {
 function logout() {
   // Clear stored user data (if using localStorage or sessionStorage)
     localStorage.removeItem("userEmail");
-
   // Redirect to login page
   window.location.href = "index.html";
 }
@@ -389,33 +388,21 @@ function fetchProfile() {
                         <h2>Admin Profile</h2>
                         <div class="profile">
                         <div class="info">
-
                               <div>
-                                   <h3><span class="material-symbols-outlined">
-                                        person
-                                       </span>Name
-                                   </h3>
-                                   <p>${data.name}</p>
+                                 <h3><span class="material-symbols-outlined">person</span>Name</h3>
+                                 <p>${data.name}</p>
                               </div>
                         </div>
                         <div class="info">
-
                                 <div>
-                                     <h3> <span class="material-symbols-outlined">
-                                           mail
-                                           </span>Email Address
-                                     </h3>
-                                     <p>${data.email}</p>
+                                   <h3> <span class="material-symbols-outlined">mail</span>Email Address</h3>
+                                   <p>${data.email}</p>
                                 </div>
                         </div>
                          <div class="info">
-
                                  <div>
-                                      <h3> <span class="material-symbols-outlined">
-                                           stars
-                                           </span>Role
-                                      </h3>
-                                      <p>${data.role}</p>
+                                    <h3> <span class="material-symbols-outlined">stars</span>Role</h3>
+                                    <p>${data.role}</p>
                                  </div>
                          </div>
             `;

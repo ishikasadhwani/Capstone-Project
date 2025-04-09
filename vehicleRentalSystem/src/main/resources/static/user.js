@@ -162,26 +162,26 @@ function openBookingForm(name, id, type, rate) {
   formContainer.innerHTML = `
         <h2>Book Vehicle</h2>
         <form id="bookingForm">
-            <label>Vehicle Name:</label>
-            <input type="text" value="${name}" readonly><br>
+            <label for="vehicleName">Vehicle Name:</label>
+            <input type="text" id="vehicleName" name="vehicleName" value="${name}" readonly><br>
 
-            <label>Vehicle ID:</label>
-            <input id= "vehicleId" type="number" value="${id}" readonly><br>
+            <label for="vehicleId">Vehicle ID:</label>
+            <input id="vehicleId" name="vehicleId" type="number" value="${id}" readonly><br>
 
-            <label>Type:</label>
-            <input type="text" value="${type}" readonly><br>
+            <label for="vehicleType">Type:</label>
+            <input type="text" id="vehicleType" name="vehicleType" value="${type}" readonly><br>
 
-            <label>Rate per Day ($):</label>
-            <input type="text" id="rate" value="${rate}" readonly><br>
+            <label for="rate">Rate per Day ($):</label>
+            <input type="text" id="rate" name="rate" value="${rate}" readonly><br>
 
-            <label>Start Date:</label>
-            <input type="date" id="startDate" min="" required><br>
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" min="" required><br>
 
-            <label>End Date:</label>
-            <input type="date" id="endDate" required><br>
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate" required><br>
 
-            <label>Total Price ($):</label>
-            <input type="text" id="totalPrice" readonly><br>
+            <label for="totalPrice">Total Price ($):</label>
+            <input type="text" id="totalPrice" name="totalPrice" readonly><br>
 
             <button type="button" onclick="calculatePrice()">Calculate Price</button>
             <button type="submit" onclick="submitBooking()">Confirm Booking</button>
