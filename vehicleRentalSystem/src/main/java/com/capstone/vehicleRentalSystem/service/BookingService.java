@@ -2,18 +2,16 @@ package com.capstone.vehicleRentalSystem.service;
 
 import com.capstone.vehicleRentalSystem.dto.BookingDto;
 import com.capstone.vehicleRentalSystem.entity.*;
+import com.capstone.vehicleRentalSystem.exceptionHandler.BookingConflictException;
+import com.capstone.vehicleRentalSystem.exceptionHandler.ResourceNotFoundException;
+import com.capstone.vehicleRentalSystem.exceptionHandler.UnauthorizedAccessException;
 import com.capstone.vehicleRentalSystem.repository.BookingRepo;
 import com.capstone.vehicleRentalSystem.repository.UserRepo;
 import com.capstone.vehicleRentalSystem.repository.VehicleRepo;
-import jakarta.persistence.Column;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,10 +29,10 @@ public class BookingService {
 
     private User getUserByEmailAndRole(String email, String requiredRole) {
         User user = userRepo.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
 
         if (!user.getRole().toString().equalsIgnoreCase(requiredRole)) {
-            throw new RuntimeException("Access denied! Only " + requiredRole + " can perform this action.");
+            throw new UnauthorizedAccessException("Access denied! Only " + requiredRole + " can perform this action.");
         }
         return user;
     }
@@ -42,7 +40,7 @@ public class BookingService {
     public List<BookingDto> getUserBookings(String email) {
         // Fetch User by Email
         User user = userRepo.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
 
         // Fetch Bookings by User ID
         List<Booking> bookings = bookingRepo.findByUserId(user.getId());
@@ -52,7 +50,6 @@ public class BookingService {
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
-
 
     public List<BookingDto> getAllBookings(String email) {
         // Validate if the user is an ADMIN
@@ -80,7 +77,9 @@ public class BookingService {
     public String createBooking(String email, BookingDto bookingDTO) {
         User user = getUserByEmailAndRole(email, "USER"); // ✅ Ensure it's a USER
         Vehicle vehicle = vehicleRepo.findById(bookingDTO.getVehicleId())
-                .orElseThrow(() -> new RuntimeException("Vehicle not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Vehicle with ID " + bookingDTO.getVehicleId() + " not found. Please check the selected vehicle."
+                ));
 
         // Check if the vehicle is already booked for the requested dates
         List<Booking> overlappingBookings = bookingRepo.findConflictingBookings(
@@ -89,7 +88,7 @@ public class BookingService {
                 bookingDTO.getEndDate());
 
         if (!overlappingBookings.isEmpty()) {
-            throw new RuntimeException("Vehicle is already booked from " +
+            throw new BookingConflictException("Vehicle is already booked from " +
                     overlappingBookings.get(0).getStartDate() + " to " + overlappingBookings.get(0).getEndDate());
         }
 
@@ -113,18 +112,6 @@ public class BookingService {
         bookingRepo.save(booking);
         return "Booking created successfully!";
     }
-
-//    // Reusable function to get User by ID
-//    private User getUserById(Long userId) {
-//        return userRepo.findById(userId)
-//                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
-//    }
-//
-//    // Reusable function to get Vehicle by ID
-//    private Vehicle getVehicleById(Long vehicleId) {
-//        return vehicleRepo.findById(vehicleId)
-//                .orElseThrow(() -> new RuntimeException("Vehicle not found with ID: " + vehicleId));
-//    }
 }
 
 

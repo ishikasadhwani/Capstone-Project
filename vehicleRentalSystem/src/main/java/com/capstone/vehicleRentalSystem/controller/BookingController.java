@@ -1,6 +1,5 @@
 package com.capstone.vehicleRentalSystem.controller;
 
-
 import com.capstone.vehicleRentalSystem.dto.BookingDto;
 import com.capstone.vehicleRentalSystem.service.BookingService;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,6 @@ import java.util.List;
 public class BookingController {
     private final BookingService bookingService;
 
-    // Constructor injection
     public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
     }
@@ -21,12 +19,18 @@ public class BookingController {
     @GetMapping("/history")
     public ResponseEntity<List<BookingDto>> getBookingHistory(@RequestParam String email){
         List<BookingDto> bookings = bookingService.getAllBookings(email);
+        if (bookings.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
         return ResponseEntity.ok(bookings);
     }
 
-    @GetMapping("/userhistory")
+    @GetMapping("/userHistory")
     public ResponseEntity<List<BookingDto>> getUserBookingHistory(@RequestParam String email) {
         List<BookingDto> bookings = bookingService.getUserBookings(email);
+        if (bookings.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
         return ResponseEntity.ok(bookings);
     }
 

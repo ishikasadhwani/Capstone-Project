@@ -20,6 +20,9 @@ public class VehicleController {
     @GetMapping("/available")
     public ResponseEntity<List<VehicleDto>> getAvailableVehicles() {
         List<VehicleDto> vehicles = vehicleService.getAvailableVehicles();
+        if (vehicles.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
         return ResponseEntity.ok(vehicles);
     }
 

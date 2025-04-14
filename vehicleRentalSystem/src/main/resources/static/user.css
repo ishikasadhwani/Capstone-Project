@@ -220,6 +220,13 @@ td {
   background: #0056b3;
 }
 
+.user .no-vehicles {
+   font-size: 1.2rem;
+   color: #555;
+   text-align: center;
+   margin-top: 20px;
+}
+
 .user #bookingFormContainer {
   margin-top: 20px;
   padding: 20px;
@@ -357,7 +364,6 @@ td {
   .user .sidebar {
     width: 200px;
     transform: translateX(-100%);
-    position: absolute;
     z-index: 1000;
   }
 

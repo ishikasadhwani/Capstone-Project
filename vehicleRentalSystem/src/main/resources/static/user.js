@@ -108,12 +108,18 @@ function fetchVehicles() {
 
   fetch("http://localhost:8080/vehicles/available") // Ensure this matches your backend URL
     .then((response) => {
+      if (response.status === 204) {
+            // No vehicles available
+            gallery.innerHTML = "<p class='no-vehicles'>No vehicles available at the moment.</p>";
+            return;
+      }
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       return response.json();
     })
     .then((vehicles) => {
+      if (!vehicles) return;
       gallery.innerHTML = ""; // Clear previous content
 
       vehicles.forEach((vehicle) => {
@@ -257,7 +263,7 @@ function submitBooking() {
 
 
 function fetchBookings() {
-    fetch(`http://localhost:8080/bookings/userhistory?email=${localStorage.getItem("userEmail")}`)
+    fetch(`http://localhost:8080/bookings/userHistory?email=${localStorage.getItem("userEmail")}`)
         .then(response => response.json())
         .then(data => {
             displayBookings(data); // Call function to display data

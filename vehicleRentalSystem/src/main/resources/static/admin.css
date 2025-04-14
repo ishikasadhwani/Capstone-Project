@@ -268,7 +268,6 @@ color: #c890a7;}
   .sidebar {
     width: 200px;
     transform: translateX(-100%);
-    position: absolute;
     z-index: 1000;
   }
 

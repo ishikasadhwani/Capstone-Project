@@ -1,5 +1,7 @@
 package com.capstone.vehicleRentalSystem.service;
 
+import com.capstone.vehicleRentalSystem.exceptionHandler.ResourceNotFoundException;
+import com.capstone.vehicleRentalSystem.exceptionHandler.UnauthorizedAccessException;
 import com.capstone.vehicleRentalSystem.repository.UserRepo;
 import com.capstone.vehicleRentalSystem.entity.User;
 import com.capstone.vehicleRentalSystem.dto.UserDto;
@@ -33,23 +35,25 @@ public class UserService {
 
     public boolean authenticateUser(String email, String rawPassword) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
         // Compare raw password with the stored hashed password
         return passwordEncoder.matches(rawPassword, user.getPassword());
     }
 
     public User getUserByEmailAndRole(String email, String requiredRole) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
+
         if (!user.getRole().toString().equalsIgnoreCase(requiredRole)) {
-            throw new RuntimeException("Access denied! Only " + requiredRole + " can perform this action.");
+            throw new UnauthorizedAccessException("Access denied! Only " + requiredRole + " can perform this action.");
         }
         return user;
     }
 
     public UserDto getUserByEmail(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
-        return user.map(this::convertToDTO).orElse(null);
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
+        return convertToDTO(user);
     }
 
     public List<UserDto> getAllUsers() {
