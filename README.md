@@ -44,6 +44,7 @@ src
 │   │       ├── controller
 │   │       ├── dto
 │   │       ├── entity
+│   │       ├── exceptionHandler             
 │   │       ├── repository
 │   │       └── service
 │   └── resources
