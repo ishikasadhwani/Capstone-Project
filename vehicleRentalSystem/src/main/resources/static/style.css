@@ -1,0 +1,159 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "PT Serif", serif;
+}
+
+html {
+  font-size: 16px;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #212121; /* Dark background for contrast */
+  color: #fbf5e5; /* Light text color */
+  padding: 1.5rem;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color:#212121;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    z-index: 1000;
+    height:4rem;
+}
+
+.navbar h2 {
+    color: #c890a7;
+}
+
+header h1 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 0.6rem;
+  color: #fbf5e5;
+}
+
+header h1:hover{
+  color: #c890a7;
+}
+
+/* Glassmorphic Login Box */
+.login-container {
+  background: rgba(200, 144, 167, 0.2); /* Light transparent overlay */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 90%;
+  max-width: 26rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(200, 144, 167, 0.4);
+}
+
+h2 {
+  margin-bottom: 1.5rem;
+  color: #fbf5e5;
+  font-size: 1.6rem;
+}
+
+.input-group {
+  margin-bottom: 1.2rem;
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+  color: #fbf5e5;
+}
+
+input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #c890a7;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background: rgba(251, 245, 229, 0.9);
+  color: #212121;
+  transition: 0.3s;
+}
+
+input:focus {
+  border-color: #a35c7a;
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 0.9rem;
+  background: linear-gradient(135deg, #c890a7, #a35c7a);
+  color: #fbf5e5;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #a35c7a, #c890a7);
+}
+
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #c890a7;
+  padding: 1rem 0;
+  position: absolute;
+  bottom: 0.5rem;
+  width: 90%;
+}
+
+@keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+.animated-text {
+     animation: fadeInUp 1.5s ease-out;
+}
+
+/* Responsive */
+@media screen and (max-width: 25rem) {
+  /* 400px */
+  .login-container {
+    width: 90%;
+    padding: 1rem; /* 16px */
+  }
+  footer {
+    padding: 5px;
+  }
+}

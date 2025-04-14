@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="user.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+          href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+          rel="stylesheet"
+  />
+  <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+  />
+  <script src="user.js" defer></script>
+</head>
+<body class="user">
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2>User Panel</h2>
+  <ul>
+    <li onclick="showSection('viewProfile')">
+      <span class="material-symbols-outlined">person</span>Profile
+    </li>
+    <li onclick="showSection('viewVehicles')">
+      <span class="material-symbols-outlined">directions_car</span>View
+      Vehicles
+    </li>
+    <li onclick="showSection('viewBookings')">
+      <span class="material-symbols-outlined">view_list</span>View Booking
+      History
+    </li>
+  </ul>
+  <button class="logout-btn" onclick="logout()">Log out</button>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <h1>Welcome, User!</h1>
+
+  <!-- Dynamic Section -->
+  <div id="content">
+    <p>Select an option from the sidebar.</p>
+  </div>
+
+</div>
+<div class="corner-head">RentWheels</div>
+</body>
+</html>

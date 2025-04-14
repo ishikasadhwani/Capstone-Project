@@ -1,0 +1,148 @@
+[33mcommit ae41afff74b5d08b277db9ba6e3160f2869bb4fe[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfrontend[m[33m, [m[1;31morigin/frontend[m[33m)[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Tue Apr 1 23:21:40 2025 +0530
+
+    Updated user and admin files
+
+[33mcommit 80770d011e8519cef5bf840e7200ed312e994969[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Tue Apr 1 23:18:15 2025 +0530
+
+    Stopped tracking application.properties
+
+[33mcommit 1430669a69d1920782d1981546d1931f26d10859[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Mon Mar 31 15:35:56 2025 +0530
+
+    Added view profile feature in user and admin dashboard
+
+[33mcommit 61ab24c54f892926aacb332ab64e5d9d78164f79[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Sat Mar 29 01:10:27 2025 +0530
+
+    Added view vehicles, view bookings, create booking, view users functionality
+
+[33mcommit 5b38d524636cec53d31604e49c1b887916783d9f[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Fri Mar 28 21:47:47 2025 +0530
+
+    Added register, login and add vehicle functionality
+
+[33mcommit adc1b87920369ff8c43dcfa50ad840794ba23acd[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Fri Mar 28 12:31:41 2025 +0530
+
+    Added user.html, user.css, user.js, admin.html, admin.css, admin.js
+
+[33mcommit 80bdaac1aac64aac32ef2d47a10406c37b4ce343[m
+Merge: 73773ce 5f03c24
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Fri Mar 28 12:01:14 2025 +0530
+
+    Merge branch 'backend' into frontend
+    On branch frontend
+    All conflicts fixed but you are still merging.
+      (use "git commit" to conclude merge)
+    
+    Changes to be committed:
+            new file:   vehicleRentalSystem/src/main/java/com/capstone/vehicleRentalSystem/config/WebConfig.java
+            modified:   vehicleRentalSystem/src/main/java/com/capstone/vehicleRentalSystem/controller/BookingController.java
+            modified:   vehicleRentalSystem/src/main/java/com/capstone/vehicleRentalSystem/controller/UserController.java
+            modified:   vehicleRentalSystem/src/main/java/com/capstone/vehicleRentalSystem/controller/VehicleController.java
+
+[33mcommit 5f03c2438870dff31f4e55c2e5df2f7dc40ec07c[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Fri Mar 28 11:47:57 2025 +0530
+
+    Updated WebConfig, UserController, VehicleController and Booking Controller classes
+
+[33mcommit a863042f888d2a5c51dc7a6d28c9d8d37e44740c[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Fri Mar 28 11:41:01 2025 +0530
+
+    Added WebConfig class
+
+[33mcommit 73773ced9098b97005ba1106ac6ba4bc371fb316[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Fri Mar 28 11:38:28 2025 +0530
+
+    Added index.html, style.css, login.html
+
+[33mcommit 3fe2ccc00d6e61875a998a4a67ec1c500e6a9539[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Fri Mar 28 01:19:19 2025 +0530
+
+    Added BookingStatusUpdater class
+
+[33mcommit 26d31f5501e17e09d029f3891ade0646dd4d280d[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Fri Mar 28 01:17:10 2025 +0530
+
+    Added BookingService, BookingController and BookingRepo Classes
+
+[33mcommit 5dedbf6be47b2f0dab184eec80d0a9c291285be8[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Fri Mar 28 01:13:43 2025 +0530
+
+    Added VehicleService, VehicleController and VehicleRepo classes
+
+[33mcommit aa9faebb8a109c2d92e16c6c3a88d8037e45224d[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Fri Mar 28 01:06:41 2025 +0530
+
+    Added PasswordEncoderConfig and SecurityConfig classes
+
+[33mcommit bbb064845e811993a9af46f7b3e9d92c76843ca6[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Fri Mar 28 01:04:07 2025 +0530
+
+    Updated pom.xml
+
+[33mcommit d09aab38e1f2e4deb956d2a26d21ea20cc5c91cf[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Fri Mar 28 00:59:33 2025 +0530
+
+    Added UserService, UserController and UserRepo classes
+
+[33mcommit 719ace8b612ab9502ca0578412885b0ae00ceae3[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Fri Mar 28 00:54:37 2025 +0530
+
+    Added Dto classes
+
+[33mcommit 330f1a67eb58fcd13e9fffa909af8dfc738f094f[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Fri Mar 28 00:46:45 2025 +0530
+
+    Added other entity classes
+
+[33mcommit 659ef325ad17a526b1ce9f3b3e3591316af819f5[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Fri Mar 28 00:37:47 2025 +0530
+
+    Created User entity class
+
+[33mcommit 48cca1fbb2e226e6bbeb062764f77db1795340ea[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Fri Mar 28 00:13:12 2025 +0530
+
+    Updated application.properties file
+
+[33mcommit fbaa5e26759ac979d5212ab96692c8c9c81aae84[m
+Merge: c622099 94b1cb4
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Thu Mar 27 23:08:05 2025 +0530
+
+    Merge branch 'main' of https://github.com/ishikasadhwani/Capstone-Project
+
+[33mcommit c622099ff6355c9e766621d80ac19e73f5b57dea[m
+Author: ishikasadhwani <ishikasadhwani3@gmail.com>
+Date:   Thu Mar 27 23:04:02 2025 +0530
+
+    Updated .gitgnore
+
+[33mcommit 94b1cb46a60dbac904d9f7d8eef966e14ff6a73f[m
+Author: Ishika Sadhwani <111297284+ishikasadhwani@users.noreply.github.com>
+Date:   Thu Mar 27 22:33:05 2025 +0530
+
+    Initial commit
