@@ -1,0 +1,267 @@
+{
+	"info": {
+		"_postman_id": "11be3da3-32a8-4077-a06c-703fe8cf1e47",
+		"name": "VEHICLE RENTAL SYSTEM",
+		"description": "All API endpoints.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "43315818",
+		"_collection_link": "https://gold-astronaut-726953.postman.co/workspace/e03b2125-c130-4c2f-8c9d-0ff75e661e66/collection/43315818-11be3da3-32a8-4077-a06c-703fe8cf1e47?action=share&source=collection_link&creator=43315818"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"ishi@gmail.com\",\r\n    \"password\":\"i@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/users/login",
+				"description": "User Controller"
+			},
+			"response": []
+		},
+		{
+			"name": "View all users(Admin only)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/all?email=ishi@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"all"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "ishi@gmail.com"
+						}
+					]
+				},
+				"description": "User Controller"
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/users/kajal@gmail.com",
+				"description": "User Controller"
+			},
+			"response": []
+		},
+		{
+			"name": "Register user(Admin only)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Pooja Khurana\",\r\n    \"email\":\"pooja@gmail.com\",\r\n    \"password\":\"pooja22\",\r\n    \"role\":\"USER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/register?email=ishi@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"register"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "ishi@gmail.com"
+						}
+					]
+				},
+				"description": "User Controller"
+			},
+			"response": []
+		},
+		{
+			"name": "View all vehicles(Admin only)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/vehicles/all?email=ishi@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vehicles",
+						"all"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "ishi@gmail.com"
+						}
+					]
+				},
+				"description": "Vehicle Controller"
+			},
+			"response": []
+		},
+		{
+			"name": "View Available Vehicles(User)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/vehicles/available",
+				"description": "Vehicle Controller"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Vehicle(Admin only)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"vehicleNo\": \"MP09UY1722\",\r\n        \"name\": \"Innova\",\r\n        \"category\": \"CAR\",\r\n        \"fuelType\": \"PETROL\",\r\n        \"seatingCapacity\": 7,\r\n        \"status\": \"AVAILABLE\",\r\n        \"pricePerDay\": 1199.0\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/vehicles/add?email=ishi@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vehicles",
+						"add"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "ishi@gmail.com"
+						}
+					]
+				},
+				"description": "Vehicle Controller"
+			},
+			"response": []
+		},
+		{
+			"name": "View all bookings(Admin only)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bookings/history?email=ishi@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookings",
+						"history"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "ishi@gmail.com"
+						}
+					]
+				},
+				"description": "Booking Controller"
+			},
+			"response": []
+		},
+		{
+			"name": "View user booking history",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bookings/userHistory?email=vanshu@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookings",
+						"userHistory"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "vanshu@gmail.com"
+						}
+					]
+				},
+				"description": "Booking Controller"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Booking(User only)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"userId\": 10,\r\n    \"userName\": \"Alok Soni\",\r\n    \"vehicleId\": 2,\r\n    \"vehicleName\": \"Pulsar 125\",\r\n    \"status\": \"CONFIRMED\",\r\n    \"startDate\": \"2025-04-20\",\r\n    \"endDate\": \"2025-04-21\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/bookings/create?email=aloksoni@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookings",
+						"create"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "aloksoni@gmail.com"
+						}
+					]
+				},
+				"description": "Booking Controller"
+			},
+			"response": []
+		}
+	]
+}
