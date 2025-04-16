@@ -81,6 +81,19 @@ public class BookingService {
                         "Vehicle with ID " + bookingDTO.getVehicleId() + " not found. Please check the selected vehicle."
                 ));
 
+        LocalDate today = LocalDate.now();
+        LocalDate startDate = bookingDTO.getStartDate();
+        LocalDate endDate = bookingDTO.getEndDate();
+
+        // Step 3: Validate booking dates
+        if (startDate.isBefore(today)) {
+            throw new IllegalArgumentException("Start date cannot be in the past.");
+        }
+
+        if (endDate.isBefore(startDate)) {
+            throw new IllegalArgumentException("End date cannot be before start date.");
+        }
+
         // Check if the vehicle is already booked for the requested dates
         List<Booking> overlappingBookings = bookingRepo.findConflictingBookings(
                 bookingDTO.getVehicleId(),

@@ -177,7 +177,7 @@ function openBookingForm(name, id, type, rate) {
             <label for="vehicleType">Type:</label>
             <input type="text" id="vehicleType" name="vehicleType" value="${type}" readonly><br>
 
-            <label for="rate">Rate per Day ($):</label>
+            <label for="rate">Rate per Day (Rupees):</label>
             <input type="text" id="rate" name="rate" value="${rate}" readonly><br>
 
             <label for="startDate">Start Date:</label>
@@ -186,7 +186,7 @@ function openBookingForm(name, id, type, rate) {
             <label for="endDate">End Date:</label>
             <input type="date" id="endDate" name="endDate" required><br>
 
-            <label for="totalPrice">Total Price ($):</label>
+            <label for="totalPrice">Total Price (Rupees):</label>
             <input type="text" id="totalPrice" name="totalPrice" readonly><br>
 
             <button type="button" onclick="calculatePrice()">Calculate Price</button>
@@ -194,6 +194,7 @@ function openBookingForm(name, id, type, rate) {
         </form>
     `;
   document.getElementById("startDate").setAttribute("min", today);
+  document.getElementById("endDate").setAttribute("min", today);
 }
 
 // Function to Close Modal Popup
@@ -224,42 +225,56 @@ function calculatePrice() {
   document.getElementById("totalPrice").value = `${totalPrice.toFixed(2)}`;
 }
 
-function submitBooking() {
-  let bookingData = {
-    userName: localStorage.getItem("userName"),
-    userId: localStorage.getItem("userId"),
-    status:"CONFIRMED",
-    vehicleId: document.getElementById("vehicleId").value,
-    vehicleName: document.querySelector("input[value][readonly]").value,
-    startDate: document.getElementById("startDate").value,
-    endDate: document.getElementById("endDate").value,
+async function submitBooking() {
+  try {
+    const userName = localStorage.getItem("userName");
+    const userId = localStorage.getItem("userId");
+    const userEmail = localStorage.getItem("userEmail"); // ✅ From localStorage
 
-  };
+    const vehicleId = document.getElementById("vehicleId").value;
+    const vehicleName = document.querySelector("input[value][readonly]").value;
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
 
-  fetch(`http://localhost:8080/bookings/create?email=${localStorage.getItem("userEmail")}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(bookingData),
-  })
-    .then((response) => {
-        if (!response.ok) {
-          return response.json().then(err => {
-            throw new Error(err.message || "Something went wrong! Please try again.");
-          });
-        }
-        return response.text(); // Backend returns plain text for success
-      })
-      .then((message) => {
-        alert("✅ " + message); // Show only success message
-        document.getElementById("bookingModal").style.display = "none";
-      })
-      .catch((error) => {
-        alert("⚠️ " + error.message); // Show only meaningful error messages
-        console.error("Error creating booking:", error);
-      });
+    if (!userName || !userId || !userEmail || !vehicleId || !startDate || !endDate) {
+      alert("Please ensure all booking details are filled in.");
+      return;
+    }
+
+    const bookingData = {
+      userName,
+      userId,
+      status: "CONFIRMED",
+      vehicleId,
+      vehicleName,
+      startDate,
+      endDate,
+    };
+
+    const response = await fetch(`http://localhost:8080/bookings/create?email=${userEmail}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bookingData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Something went wrong! Please try again.");
+    }
+
+    const message = await response.text(); // assuming backend returns plain text
+    console.log(message);
+    alert("✅ " + message);
+    document.getElementById("bookingModal").style.display = "none";
+
+  } catch (error) {
+    alert("⚠️ " + error.message);
+    console.error("Error creating booking:", error);
+  }
 }
+
 
 
 function fetchBookings() {
