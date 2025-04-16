@@ -25,6 +25,11 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(ex.getMessage(), HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(InvalidBookingDateException.class)
+    public ResponseEntity<Object> handleInvalidBookingDate(InvalidBookingDateException ex) {
+        return buildErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(UnauthorizedAccessException.class)
     public ResponseEntity<Object> handleUnauthorized(UnauthorizedAccessException ex) {
         return buildErrorResponse(ex.getMessage(), HttpStatus.UNAUTHORIZED);
