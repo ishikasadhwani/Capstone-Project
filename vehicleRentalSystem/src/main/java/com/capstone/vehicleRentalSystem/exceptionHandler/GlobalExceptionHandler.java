@@ -1,8 +1,5 @@
 package com.capstone.vehicleRentalSystem.exceptionHandler;
 
-import com.capstone.vehicleRentalSystem.exceptionHandler.BookingConflictException;
-import com.capstone.vehicleRentalSystem.exceptionHandler.ResourceNotFoundException;
-import com.capstone.vehicleRentalSystem.exceptionHandler.UnauthorizedAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
