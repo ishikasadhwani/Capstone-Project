@@ -3,6 +3,7 @@ package com.capstone.vehicleRentalSystem.service;
 import com.capstone.vehicleRentalSystem.dto.BookingDto;
 import com.capstone.vehicleRentalSystem.entity.*;
 import com.capstone.vehicleRentalSystem.exceptionHandler.BookingConflictException;
+import com.capstone.vehicleRentalSystem.exceptionHandler.InvalidBookingDateException;
 import com.capstone.vehicleRentalSystem.exceptionHandler.ResourceNotFoundException;
 import com.capstone.vehicleRentalSystem.exceptionHandler.UnauthorizedAccessException;
 import com.capstone.vehicleRentalSystem.repository.BookingRepo;
@@ -87,11 +88,11 @@ public class BookingService {
 
         // Step 3: Validate booking dates
         if (startDate.isBefore(today)) {
-            throw new IllegalArgumentException("Start date cannot be in the past.");
+            throw new InvalidBookingDateException("Start date cannot be in the past.");
         }
 
         if (endDate.isBefore(startDate)) {
-            throw new IllegalArgumentException("End date cannot be before start date.");
+            throw new InvalidBookingDateException("End date cannot be before start date.");
         }
 
         // Check if the vehicle is already booked for the requested dates

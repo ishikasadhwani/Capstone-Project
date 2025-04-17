@@ -103,13 +103,11 @@ body.user {
      display: flex;
      align-items: center;
      gap:5px;
-
-
 }
+
 .user .profile p{
 margin left : 10%;
 font-size:18px;}
-
 
 .user .info span{
 padding:2px;
@@ -286,10 +284,6 @@ td {
   background: #218838;
 }
 
-.user #bookingModal{
-
-
-}
 
 /* Modal Styles */
 .user .modal {
@@ -344,7 +338,7 @@ td {
     display: none; /* Hide by default */
 }
 
-/* 🟢 Responsive Design */
+/* Responsive Design */
 @media (max-width: 1024px) {
   .user .vehicle-list {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

@@ -216,11 +216,6 @@ function calculatePrice() {
   let timeDifference = endDate.getTime() - startDate.getTime();
   let days = timeDifference / (1000 * 3600 * 24);
 
-//  if (days < 1) {
-//    alert("End date must be after the start date.");
-//    return;
-//  }
-
   let totalPrice = (days+1) * rate;
   document.getElementById("totalPrice").value = `${totalPrice.toFixed(2)}`;
 }
