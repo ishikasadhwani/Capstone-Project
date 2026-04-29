@@ -1,7 +1,7 @@
 # Capstone-Project
 # 🚗 Vehicle Rental System
 
-A **Spring Boot** + **PostgreSQL** based Vehicle Rental System with a responsive **HTML/CSS/JavaScript** frontend. This system is built as a Capstone Project to manage user roles, vehicles and bookings efficiently.
+A **Spring Boot** + **PostgreSQL** based Vehicle Rental System with a responsive **HTML/CSS/JavaScript** frontend. This system is built as a Capstone Project to manage user roles, vehicles and bookings efficiently. This is important.
 
 🔗 **GitHub Repository:** [Capstone Project](https://github.com/ishikasadhwani/Capstone-Project)
 
